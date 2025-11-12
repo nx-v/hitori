@@ -213,9 +213,9 @@ define:
         |unset|ref|and|x?or|not
         |const|let|mut|dyn|va[rl]|use|given|state
         |func|proc|prop|type|class|actor
-        |impl|enum|module|struct|field
+        |impl|enum|module|struct|record
         |union|iter|macro|query|elem|temp
-        |object|realm|trait|style|script
+        |object|realm|trait|style|script|quote
         |go|defer|do|with|from|where
         |if|else|then|guard|when
         |for|loop|while|goto|move
@@ -224,7 +224,7 @@ define:
         |break|skip|redo|retry
         |return|yield|await|scope
         |import|export|intern|extern
-        |debug|assert|check
+        |debug|assert|check|decl
       )
       \b
     )
@@ -242,9 +242,9 @@ define:
         |unset|ref|and|x?or|not
         |const|let|mut|dyn|va[rl]|use|given|state
         |func|proc|prop|type|class|actor
-        |impl|enum|module|struct|field
+        |impl|enum|module|struct|record
         |union|iter|macro|query|elem|temp
-        |object|realm|trait|style|script
+        |object|realm|trait|style|script|quote
         |go|defer|do|with|from|where
         |if|else|then|guard|when
         |for|loop|while|goto|move
@@ -253,7 +253,7 @@ define:
         |break|skip|redo|retry
         |return|yield|await|scope
         |import|export|intern|extern
-        |debug|assert|check
+        |debug|assert|check|decl
       )
     \b
 
@@ -335,7 +335,10 @@ repository:
   types:
     patterns:
       - include: '#comments'
+      - include: '#type-brackets'
       - include: '#embedded-expression'
+      - include: '#embedded-format'
+      - include: '#embedded-placeholder'
       - include: '#angle-brackets'
       - include: '#modifiers'
       - include: '#type-keywords'
@@ -343,7 +346,6 @@ repository:
       - include: '#literals'
       - include: '#type-variables'
       - include: '#type-operators'
-      - include: '#type-brackets'
       - include: '#space'
 
   type-variables:
@@ -363,9 +365,9 @@ repository:
           |unset|ref|and|x?or|not
           |const|let|mut|dyn|va[rl]|use|given|state
           |func|proc|prop|type|class|actor
-          |impl|enum|module|struct|field
+          |impl|enum|module|struct|record
           |union|iter|macro|query|elem|temp
-          |object|realm|trait|style|script
+          |object|realm|trait|style|script|quote
           |go|defer|do|with|from|where
           |if|else|then|guard|when
           |for|loop|while|goto|move
@@ -374,7 +376,7 @@ repository:
           |break|skip|redo|retry
           |return|yield|await|scope
           |import|export|intern|extern
-          |debug|assert|check
+          |debug|assert|check|decl
         )
         \b
       )
@@ -2331,9 +2333,9 @@ repository:
               |unset|ref|and|x?or|not
               |const|let|mut|dyn|va[rl]|use|given|state
               |func|proc|prop|type|class|actor
-              |impl|enum|module|struct|field
+              |impl|enum|module|struct|record
               |union|iter|macro|query|elem|temp
-              |object|realm|trait|style|script
+              |object|realm|trait|style|script|quote
               |go|defer|do|with|from|where
               |if|else|then|guard|when
               |for|loop|while|goto|move
@@ -2342,7 +2344,7 @@ repository:
               |break|skip|redo|retry
               |return|yield|await|scope
               |import|export|intern|extern
-              |debug|assert|check
+              |debug|assert|check|decl
             )
             \b
           )
@@ -2386,9 +2388,9 @@ repository:
               |unset|ref|and|x?or|not
               |const|let|mut|dyn|va[rl]|use|given|state
               |func|proc|prop|type|class|actor
-              |impl|enum|module|struct|field
+              |impl|enum|module|struct|record
               |union|iter|macro|query|elem|temp
-              |object|realm|trait|style|script
+              |object|realm|trait|style|script|quote
               |go|defer|do|with|from|where
               |if|else|then|guard|when
               |for|loop|while|goto|move
@@ -2397,7 +2399,7 @@ repository:
               |break|skip|redo|retry
               |return|yield|await|scope
               |import|export|intern|extern
-              |debug|assert|check
+              |debug|assert|check|decl
             )
             \b
           )
@@ -2465,9 +2467,9 @@ repository:
                 |unset|ref|and|x?or|not
                 |const|let|mut|dyn|va[rl]|use|given|state
                 |func|proc|prop|type|class|actor
-                |impl|enum|module|struct|field
+                |impl|enum|module|struct|record
                 |union|iter|macro|query|elem|temp
-                |object|realm|trait|style|script
+                |object|realm|trait|style|script|quote
                 |go|defer|do|with|from|where
                 |if|else|then|guard|when
                 |for|loop|while|goto|move
@@ -2476,7 +2478,7 @@ repository:
                 |break|skip|redo|retry
                 |return|yield|await|scope
                 |import|export|intern|extern
-                |debug|assert|check
+                |debug|assert|check|decl
               )
               \b
             )
@@ -2639,9 +2641,9 @@ repository:
               |unset|ref|and|x?or|not
               |const|let|mut|dyn|va[rl]|use|given|state
               |func|proc|prop|type|class|actor
-              |impl|enum|module|struct|field
+              |impl|enum|module|struct|record
               |union|iter|macro|query|elem|temp
-              |object|realm|trait|style|script
+              |object|realm|trait|style|script|quote
               |go|defer|do|with|from|where
               |if|else|then|guard|when
               |for|loop|while|goto|move
@@ -2650,7 +2652,7 @@ repository:
               |break|skip|redo|retry
               |return|yield|await|scope
               |import|export|intern|extern
-              |debug|assert|check
+              |debug|assert|check|decl
             )
           \b
         ) \s*
@@ -3269,9 +3271,9 @@ repository:
               |unset|ref|and|x?or|not
               |const|let|mut|dyn|va[rl]|use|given|state
               |func|proc|prop|type|class|actor
-              |impl|enum|module|struct|field
+              |impl|enum|module|struct|record
               |union|iter|macro|query|elem|temp
-              |object|realm|trait|style|script
+              |object|realm|trait|style|script|quote
               |go|defer|do|with|from|where
               |if|else|then|guard|when
               |for|loop|while|goto|move
@@ -3280,7 +3282,7 @@ repository:
               |break|skip|redo|retry
               |return|yield|await|scope
               |import|export|intern|extern
-              |debug|assert|check
+              |debug|assert|check|decl
             )
           \b
         ) \s*
@@ -4590,7 +4592,7 @@ repository:
           | # C-style function call
             (?:[?!:]:=?|[?!]?\.=?)? \#? [({]
           | # generics
-            (?:[?!:]:=?|[?!]?\.=?)? < ['"`({\[\w]
+            (?:[?!:]:=?|[?!]?\.=?)? < [#$%]? ['"`({\[\w]
           | # macro calls
             ! \#? [({]
           | # strings and symbols
@@ -4615,9 +4617,9 @@ repository:
                 |unset|ref|and|x?or|not
                 |const|let|mut|dyn|va[rl]|use|given|state
                 |func|proc|prop|type|class|actor
-                |impl|enum|module|struct|field
+                |impl|enum|module|struct|record
                 |union|iter|macro|query|elem|temp
-                |object|realm|trait|style|script
+                |object|realm|trait|style|script|quote
                 |go|defer|do|with|from|where
                 |if|else|then|guard|when
                 |for|loop|while|goto|move
@@ -4626,7 +4628,7 @@ repository:
                 |break|skip|redo|retry
                 |return|yield|await|scope
                 |import|export|intern|extern
-                |debug|assert|check
+                |debug|assert|check|decl
               )
               \b
             )
@@ -4645,7 +4647,7 @@ repository:
               | # C-style function call
                 (?:[?!:]:=?|[?!]?\.=?)? \#? [({]
               | # generics
-                (?:[?!:]:=?|[?!]?\.=?)? < ['"`({\[\w]
+                (?:[?!:]:=?|[?!]?\.=?)? < [#$%]? ['"`({\[\w]
               | # macro calls
                 ! \#? [({]
               | # strings
@@ -4672,9 +4674,9 @@ repository:
                 |unset|ref|and|x?or|not
                 |const|let|mut|dyn|va[rl]|use|given|state
                 |func|proc|prop|type|class|actor
-                |impl|enum|module|struct|field
+                |impl|enum|module|struct|record
                 |union|iter|macro|query|elem|temp
-                |object|realm|trait|style|script
+                |object|realm|trait|style|script|quote
                 |go|defer|do|with|from|where
                 |if|else|then|guard|when
                 |for|loop|while|goto|move
@@ -4683,7 +4685,7 @@ repository:
                 |break|skip|redo|retry
                 |return|yield|await|scope
                 |import|export|intern|extern
-                |debug|assert|check
+                |debug|assert|check|decl
               )
               \b
             )
@@ -4876,10 +4878,10 @@ repository:
                 \b (?:
                   const|let|mut|dyn|va[rl]|use|given|state
                   |func|proc|prop|type|class|actor
-                  |impl|enum|module|struct|field
+                  |impl|enum|module|struct|record
                   |union|iter|macro|query|elem|temp
-                  |object|realm|trait|style|script|as
-                  |given|using
+                  |object|realm|trait|style|script|quote
+                  |given|use|as
                 ) \b
                 (?:$|[,;'"({\[)}\]\s]) # var/val/as/given/using keyword
             ) \s*
@@ -4916,10 +4918,10 @@ repository:
                 \b (?:
                   const|let|mut|dyn|va[rl]|use|given|state
                   |func|proc|prop|type|class|actor
-                  |impl|enum|module|struct|field
+                  |impl|enum|module|struct|record
                   |union|iter|macro|query|elem|temp
-                  |object|realm|trait|style|script|as
-                  |given|using
+                  |object|realm|trait|style|script|quote
+                  |given|use|as
                 ) \b
                 (?:$|[,;'"({\[)}\]\s]) # var/val/as/given/using keyword
             ) \s*
@@ -4956,10 +4958,10 @@ repository:
                 \b (?:
                   const|let|mut|dyn|va[rl]|use|given|state
                   |func|proc|prop|type|class|actor
-                  |impl|enum|module|struct|field
+                  |impl|enum|module|struct|record
                   |union|iter|macro|query|elem|temp
-                  |object|realm|trait|style|script|as
-                  |given|using
+                  |object|realm|trait|style|script|quote
+                  |given|use|as
                 ) \b
                 (?:$|[,;'"({\[)}\]\s]) # var/val/as/given/using keyword
             ) \s*
@@ -4996,10 +4998,10 @@ repository:
                 \b (?:
                   const|let|mut|dyn|va[rl]|use|given|state
                   |func|proc|prop|type|class|actor
-                  |impl|enum|module|struct|field
+                  |impl|enum|module|struct|record
                   |union|iter|macro|query|elem|temp
-                  |object|realm|trait|style|script|as
-                  |given|using
+                  |object|realm|trait|style|script|quote
+                  |given|use|as
                 ) \b
                 (?:$|[,;'"({\[)}\]\s]) # var/val/as/given/using keyword
             ) \s*
@@ -5036,10 +5038,10 @@ repository:
                 \b (?:
                   const|let|mut|dyn|va[rl]|use|given|state
                   |func|proc|prop|type|class|actor
-                  |impl|enum|module|struct|field
+                  |impl|enum|module|struct|record
                   |union|iter|macro|query|elem|temp
-                  |object|realm|trait|style|script|as
-                  |given|using
+                  |object|realm|trait|style|script|quote
+                  |given|use|as
                 ) \b
                 (?:$|[,;'"({\[)}\]\s]) # var/val/as/given/using keyword
             ) \s*
@@ -5076,10 +5078,10 @@ repository:
                 \b (?:
                   const|let|mut|dyn|va[rl]|use|given|state
                   |func|proc|prop|type|class|actor
-                  |impl|enum|module|struct|field
+                  |impl|enum|module|struct|record
                   |union|iter|macro|query|elem|temp
-                  |object|realm|trait|style|script|as
-                  |given|using
+                  |object|realm|trait|style|script|quote
+                  |given|use|as
                 ) \b
                 (?:$|[,;'"({\[)}\]\s]) # var/val/as/given/using keyword
             ) \s*
@@ -5695,9 +5697,9 @@ repository:
         (?:
           const|let|mut|dyn|va[rl]|use|given|state
           |func|proc|prop|type|class|actor
-          |impl|enum|module|struct|field
+          |impl|enum|module|struct|record
           |union|iter|macro|query|elem|temp
-          |object|realm|trait|style|script
+          |object|realm|trait|style|script|quote
           |import|export|intern|extern
         )
         \b\s*
@@ -5748,7 +5750,7 @@ repository:
 
   declaration-keywords:
     patterns:
-      - match: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(declare)\b\s*
+      - match: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(decl)\b\s*
         name: keyword.other.declare.hitori
       - match: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(const|let|mut|dyn|va[rl]|use|given|state)\b\s*
         name: storage.type.hitori
@@ -5758,9 +5760,9 @@ repository:
             (?<!(?:(?<!\.)\.|[?!:]:)=?)\b
             (
               func|func|proc|prop|type|class|actor
-              |impl|enum|module|struct|field
+              |impl|enum|module|struct|record
               |union|iter|macro|query|elem|temp
-              |object|realm|trait|style|script
+              |object|realm|trait|style|script|quote
             )
             \b
           \s*
@@ -5785,7 +5787,7 @@ repository:
         name: keyword.control.module.hitori
       - match: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(with|do|from|ref|go|defer)\b\s*
         name: keyword.control.$1.hitori
-      - match: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(debug|assert|check|where)\b\s*
+      - match: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(debug|assert|check|decl|where)\b\s*
         name: keyword.other.$1.hitori
 
   expression-keywords:
@@ -6092,6 +6094,7 @@ repository:
     patterns:
       - include: '#variable'
       - include: '#declare'
+      - include: '#quote'
       - include: '#style'
       - include: '#script'
       - include: '#markup'
@@ -6108,7 +6111,7 @@ repository:
       - include: '#object'
       - include: '#trait'
       - include: '#component'
-      - include: '#field'
+      - include: '#record'
       - include: '#realm'
       - include: '#struct'
       - include: '#union'
@@ -6117,6 +6120,29 @@ repository:
       - include: '#template'
 
     repository:
+      quote:
+        applyEndPatternLast: true
+        begin: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(quote)\b\s*
+        end: (?=)|$
+        beginCaptures:
+          1: {name: storage.type.quote.hitori}
+        name: meta.quote.hitori
+        patterns:
+          - begin: \s*(\{)\s*
+            end: \s*(\})\s*
+            name: meta.quote.hitori
+            captures:
+              1: {name: punctuation.definition.block.hitori}
+            patterns:
+              - include: '#embedded-expression'
+              - include: '#embedded-format'
+              - include: '#embedded-placeholder'
+              - include: $self
+          - include: '#declaration-clause'
+          - include: '#namespace-separators'
+          - match: *entity-name
+            name: entity.name.quote.hitori
+
       style:
         applyEndPatternLast: true
         begin: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(style)\b\s*
@@ -6169,7 +6195,7 @@ repository:
 
       declare:
         applyEndPatternLast: true
-        begin: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(declare)\b\s*
+        begin: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(decl)\b\s*
         end: (?=)|$
         beginCaptures:
           1: {name: keyword.other.declare.hitori}
@@ -6389,17 +6415,17 @@ repository:
           - match: *entity-name
             name: entity.name.struct.hitori
 
-      field:
+      record:
         applyEndPatternLast: true
-        begin: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(field)\b\s*
+        begin: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(record)\b\s*
         end: (?=)|$
         beginCaptures:
-          1: {name: storage.type.field.hitori}
+          1: {name: storage.type.record.hitori}
         patterns:
           - include: '#declaration-clause'
           - include: '#namespace-separators'
           - match: *entity-name
-            name: entity.name.field.hitori
+            name: entity.name.record.hitori
 
   declaration-clause:
     name: meta.declaration.hitori
@@ -6412,6 +6438,7 @@ repository:
       - include: '#type-signature'
       - include: '#decorators'
       - include: '#type-keywords'
+
       - match: \s*(?<!\*)\*(?!\*)\s*
         name: keyword.generator.asterisk.hitori
       - include: '#comments'
@@ -6438,9 +6465,12 @@ repository:
           1: {name: punctuation.definition.block.hitori}
         patterns:
           - include: $self
+      - include: '#embedded-expression'
+      - include: '#embedded-format'
+      - include: '#embedded-placeholder'
       - include: '#brackets'
       - include: '#literals'
-      - match: ::|\.
+      - match: ::|\.|\\
         name: punctuation.separator.namespace.hitori
       - match: \s+
         name: meta.block.hitori
@@ -6490,9 +6520,9 @@ repository:
             \b
             (?: # Function types
               function|proc|method|type
-              |class|impl|enum|module|struct|field|union
+              |class|impl|enum|module|struct|record|union
               |iter|macro|query|object|realm
-              |trait|style|script|elem|field|model|actor
+              |trait|style|script|elem|record|model|actor
             )
             \b
           )
@@ -6586,9 +6616,9 @@ repository:
             \b
             (?: # Function types
               function|proc|method|type
-              |class|impl|enum|module|struct|field|union
+              |class|impl|enum|module|struct|record|union
               |iter|macro|query|object|realm
-              |trait|style|script|elem|field|model|actor
+              |trait|style|script|elem|record|model|actor
             )
             \b
           )
@@ -6668,9 +6698,9 @@ repository:
               |unset|ref|and|x?or|not
               |const|let|mut|dyn|va[rl]|use|given|state
               |func|proc|prop|type|class|actor
-              |impl|enum|module|struct|field
+              |impl|enum|module|struct|record
               |union|iter|macro|query|elem|temp
-              |object|realm|trait|style|script
+              |object|realm|trait|style|script|quote
               |go|defer|do|with|from|where
               |if|else|then|guard|when
               |for|loop|while|goto|move
@@ -6679,7 +6709,7 @@ repository:
               |break|skip|redo|retry
               |return|yield|await|scope
               |import|export|intern|extern
-              |debug|assert|check
+              |debug|assert|check|decl
             )
           \b
         ) \s*
@@ -7104,9 +7134,9 @@ repository:
             \b
             (?: # Function types
               function|proc|method|type
-              |class|impl|enum|module|struct|field|union
+              |class|impl|enum|module|struct|record|union
               |iter|macro|query|object|realm
-              |trait|style|script|elem|field|model|actor
+              |trait|style|script|elem|record|model|actor
             )
             \b
           )
@@ -7225,7 +7255,7 @@ repository:
           1: {name: punctuation.type.arguments.hitori}
       - comment: Support for Turbofish syntax
         name: meta.type-arguments
-        begin: (?<=^|['"`)}\]>\w\s])([?!:]:|[?!]?\.)(<)(?=['"`({\[\w])
+        begin: (?<=^|['"`)}\]>\w\s])([?!:]:|[?!]?\.)(<)(?=[#$%]?['"`({\[\w])
         end: (?<=^|['"`)}\]>\w])()(>)(!\b)?
         captures:
           1:
@@ -7238,6 +7268,9 @@ repository:
           - include: '#brackets'
           - include: '#types'
           - include: '#type-signature'
+          - include: '#embedded-expression'
+          - include: '#embedded-format'
+          - include: '#embedded-placeholder'
 
   generic-operators:
     name: punctuation.type.arguments.hitori
@@ -7289,7 +7322,7 @@ repository:
           1: {name: punctuation.type.arguments.hitori}
       - comment: Type arguments. This is complicated since we don't want to match things like foo < 123 || bar > baz
         name: meta.type-arguments
-        begin: (?<=^|['"`)}\]>\w\s])(<)(?=['"`({\[\w])
+        begin: (?<=^|['"`)}\]>\w\s])(<)(?=[#$%]?['"`({\[\w])
         end: (?<=^|['"`)}\]>\w]?)(>)
         captures:
           1: {name: punctuation.type.arguments.hitori}
@@ -7298,6 +7331,9 @@ repository:
           - include: '#brackets'
           - include: '#types'
           - include: '#type-signature'
+          - include: '#embedded-expression'
+          - include: '#embedded-format'
+          - include: '#embedded-placeholder'
 
   curly-brackets:
     repository:
@@ -7665,9 +7701,9 @@ repository:
                 |unset|ref|and|x?or|not
                 |const|let|mut|dyn|va[rl]|use|given|state
                 |func|proc|prop|type|class|actor
-                |impl|enum|module|struct|field
+                |impl|enum|module|struct|record
                 |union|iter|macro|query|elem|temp
-                |object|realm|trait|style|script
+                |object|realm|trait|style|script|quote
                 |go|defer|do|with|from|where
                 |if|else|then|guard|when
                 |for|loop|while|goto|move
@@ -7676,7 +7712,7 @@ repository:
                 |break|skip|redo|retry
                 |return|yield|await|scope
                 |import|export|intern|extern
-                |debug|assert|check
+                |debug|assert|check|decl
               )
               \b
             )
@@ -7732,9 +7768,9 @@ repository:
                 |unset|ref|and|x?or|not
                 |const|let|mut|dyn|va[rl]|use|given|state
                 |func|proc|prop|type|class|actor
-                |impl|enum|module|struct|field
+                |impl|enum|module|struct|record
                 |union|iter|macro|query|elem|temp
-                |object|realm|trait|style|script
+                |object|realm|trait|style|script|quote
                 |go|defer|do|with|from|where
                 |if|else|then|guard|when
                 |for|loop|while|goto|move
@@ -7743,7 +7779,7 @@ repository:
                 |break|skip|redo|retry
                 |return|yield|await|scope
                 |import|export|intern|extern
-                |debug|assert|check
+                |debug|assert|check|decl
               )
               \b
             )
@@ -7827,9 +7863,9 @@ repository:
                 |unset|ref|and|x?or|not
                 |const|let|mut|dyn|va[rl]|use|given|state
                 |func|proc|prop|type|class|actor
-                |impl|enum|module|struct|field
+                |impl|enum|module|struct|record
                 |union|iter|macro|query|elem|temp
-                |object|realm|trait|style|script
+                |object|realm|trait|style|script|quote
                 |go|defer|do|with|from|where
                 |if|else|then|guard|when
                 |for|loop|while|goto|move
@@ -7838,7 +7874,7 @@ repository:
                 |break|skip|redo|retry
                 |return|yield|await|scope
                 |import|export|intern|extern
-                |debug|assert|check
+                |debug|assert|check|decl
               )
               \b
             )
@@ -8090,6 +8126,6 @@ repository:
         # graphics-3d
         mesh|vertex|normal|uv|texture|shader|render|draw|transform|translate|rotate|scale|projection|camera|light|ray|trace|loadobj|saveobj|loadfbx|savefbx|scene|material|bake|animate|interpolate|
         # physics
-        force|mass|velocity|acceleration|momentum|impulse|friction|gravity|collision|simulate|integrate|step|energy|potential|kinetic|torque|spring|rigidbody|particle|fluid|field|attractor|repulsor|constraint|joint|solver|dynamics|kinematics|softbody|raycast|broadphase|narrowphase|contact|transform
+        force|mass|velocity|acceleration|momentum|impulse|friction|gravity|collision|simulate|integrate|step|energy|potential|kinetic|torque|spring|rigidbody|particle|fluid|record|attractor|repulsor|constraint|joint|solver|dynamics|kinematics|softbody|raycast|broadphase|narrowphase|contact|transform
       )\b\s*
     name: support.function.core.hitori
