@@ -72,6 +72,10 @@ changelog: |
 
   New changes:
 
+  - All control structures do not need to be bracketed. If the body of a
+    control structure is a single statement, the braces can be omitted,
+    and is replaced by a colon (:). This includes if, for, while, switch,
+    match, try, catch, etc.
   - Fixed syntax highlighting of code blocks beside lambda pipes.
   - Added base 4, 6 and 12 numeric literals. Except for base 14, all even
     bases up to 16 are now supported.
@@ -211,7 +215,7 @@ define:
         |go|defer|do|with|from|where
         |if|else|then|guard|when
         |for|loop|while|goto|move
-        |try|throw|catch|finally|switch
+        |try|throw|catch|switch
         |match|case|pass|def
         |break|skip|redo|retry
         |return|yield|await|scope
@@ -240,7 +244,7 @@ define:
         |go|defer|do|with|from|where
         |if|else|then|guard|when
         |for|loop|while|goto|move
-        |try|throw|catch|finally|switch
+        |try|throw|catch|switch
         |match|case|pass|def
         |break|skip|redo|retry
         |return|yield|await|scope
@@ -361,7 +365,7 @@ repository:
           |go|defer|do|with|from|where
           |if|else|then|guard|when
           |for|loop|while|goto|move
-          |try|throw|catch|finally|switch
+          |try|throw|catch|switch
           |match|case|pass|def
           |break|skip|redo|retry
           |return|yield|await|scope
@@ -2288,7 +2292,7 @@ repository:
               |go|defer|do|with|from|where
               |if|else|then|guard|when
               |for|loop|while|goto|move
-              |try|throw|catch|finally|switch
+              |try|throw|catch|switch
               |match|case|pass|def
               |break|skip|redo|retry
               |return|yield|await|scope
@@ -2343,7 +2347,7 @@ repository:
               |go|defer|do|with|from|where
               |if|else|then|guard|when
               |for|loop|while|goto|move
-              |try|throw|catch|finally|switch
+              |try|throw|catch|switch
               |match|case|pass|def
               |break|skip|redo|retry
               |return|yield|await|scope
@@ -2422,7 +2426,7 @@ repository:
                 |go|defer|do|with|from|where
                 |if|else|then|guard|when
                 |for|loop|while|goto|move
-                |try|throw|catch|finally|switch
+                |try|throw|catch|switch
                 |match|case|pass|def
                 |break|skip|redo|retry
                 |return|yield|await|scope
@@ -2596,7 +2600,7 @@ repository:
               |go|defer|do|with|from|where
               |if|else|then|guard|when
               |for|loop|while|goto|move
-              |try|throw|catch|finally|switch
+              |try|throw|catch|switch
               |match|case|pass|def
               |break|skip|redo|retry
               |return|yield|await|scope
@@ -3226,7 +3230,7 @@ repository:
               |go|defer|do|with|from|where
               |if|else|then|guard|when
               |for|loop|while|goto|move
-              |try|throw|catch|finally|switch
+              |try|throw|catch|switch
               |match|case|pass|def
               |break|skip|redo|retry
               |return|yield|await|scope
@@ -4549,7 +4553,7 @@ repository:
                 |go|defer|do|with|from|where
                 |if|else|then|guard|when
                 |for|loop|while|goto|move
-                |try|throw|catch|finally|switch
+                |try|throw|catch|switch
                 |match|case|pass|def
                 |break|skip|redo|retry
                 |return|yield|await|scope
@@ -4606,7 +4610,7 @@ repository:
                 |go|defer|do|with|from|where
                 |if|else|then|guard|when
                 |for|loop|while|goto|move
-                |try|throw|catch|finally|switch
+                |try|throw|catch|switch
                 |match|case|pass|def
                 |break|skip|redo|retry
                 |return|yield|await|scope
@@ -5701,7 +5705,7 @@ repository:
         name: keyword.control.conditional.hitori
       - match: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(for|loop|while)\b\s*
         name: keyword.control.loop.hitori
-      - match: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(try|throw|catch|finally|then)\b\s*
+      - match: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(try|throw|catch|then)\b\s*
         name: keyword.control.trycatch.hitori
       - match: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(switch|case|def)\b\s*
         name: keyword.control.switch.hitori
@@ -6547,7 +6551,7 @@ repository:
               |go|defer|do|with|from|where
               |if|else|then|guard|when
               |for|loop|while|goto|move
-              |try|throw|catch|finally|switch
+              |try|throw|catch|switch
               |match|case|pass|def
               |break|skip|redo|retry
               |return|yield|await|scope
@@ -6631,39 +6635,27 @@ repository:
                   1: {name: keyword.operator.assignment.hitori}
 
       try-clause:
-        applyEndPatternLast: true
-        begin: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(try|then|finally)\b\s*(?=\()
-        end: (?=)|$
-        name: meta.if.hitori
-        captures:
+        begin: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(try|then)\b\s*
+        end: \s*(:)(?=['"`({\[)}\]\w\s])|(?=[,;)}\]])|$
+        name: meta.try.hitori
+        beginCaptures:
           1: {name: keyword.control.error.hitori}
-          2: {name: keyword.operator.logical.hitori}
+        endCaptures:
+          2: {name: punctuation.definition.section.hitori}
         patterns:
-          - begin: \s*(\()\s*
-            end: \s*(\))
-            captures:
-              1: {name: punctuation.definition.expression.hitori}
-            patterns:
-              - match: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(await)\b\s*
-                name: keyword.control.error.hitori
-              - include: $self
+          - match: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(await)\b\s*
+            name: keyword.control.error.hitori
+          - include: $self
 
       catch-clause:
-        applyEndPatternLast: true
-        begin: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(catch)\b\s*(?=\()
-        end: (?=)|$
+        begin: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(catch)\b\s*
+        end: \s*(:)(?=['"`({\[)}\]\w\s])|(?=[,;)}\]])|$
         name: meta.catch.hitori
         captures:
           1: {name: keyword.control.error.hitori}
         patterns:
-          - begin: \s*(\()\s*
-            end: \s*(\))
-            captures:
-              1: {name: punctuation.definition.expression.hitori}
-            patterns:
-              - match: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(as)\b\s*
-                name: keyword.control.error.hitori
-              - include: $self
+          - match: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(as)\b\s*
+            name: keyword.control.error.hitori
           - begin: \s*(\{)\s*
             end: \s*(\})\s*
             captures:
@@ -6671,21 +6663,20 @@ repository:
             patterns:
               - include: '#catch-case-clause'
               - include: $self
+          - include: $self
 
       catch-case-clause:
         patterns:
           - match: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(def)\b\s*(:)
             captures:
               1: {name: keyword.control.error.hitori}
-              2:
-                name: punctuation.definition.case-statement.hitori
+              2: {name: punctuation.definition.case-statement.hitori}
           - begin: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(case)\b\s*
             end: \s*(:)(?=['"`({\[)}\]\w\s])|$
             beginCaptures:
               1: {name: keyword.control.error.hitori}
             endCaptures:
-              1:
-                name: punctuation.definition.case-statement.hitori
+              1: {name: punctuation.definition.case-statement.hitori}
             patterns:
               - include: '#argument-list'
               - applyEndPatternLast: true
@@ -6701,56 +6692,42 @@ repository:
               - include: $self
 
       for-clause:
-        applyEndPatternLast: true
-        begin: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(for|while\s+not|while)\b\s*(?=\()
-        end: (?=)|$
+        begin: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(for|while\s+not|while)\b\s*
+        end: \s*(:)(?=['"`({\[)}\]\w\s])|(?=[,;)}\]])|$
         name: meta.for.hitori
-        captures:
+        beginCaptures:
           1: {name: keyword.control.loop.hitori}
+        endCaptures:
+          2: {name: punctuation.definition.section.hitori}
         patterns:
-          - begin: \s*(\()\s*
-            end: \s*(\))
-            captures:
-              1: {name: punctuation.definition.expression.hitori}
-            patterns:
-              - match: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b([io]n|of)\b\s*
-                name: keyword.control.loop.hitori
-              - include: $self
+          - match: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b([io]n|of)\b\s*
+            name: keyword.control.loop.hitori
+          - include: $self
 
       if-clause:
-        applyEndPatternLast: true
-        begin: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(if\s+not|if|guard|when)\b\s*(?=\()
-        end: (?=)|$
+        begin: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(if\s+not|if|guard|when)\b\s*
+        end: \s*(:)(?=['"`({\[)}\]\w\s])|(?=[,;)}\]])|$
         name: meta.if.hitori
-        captures:
+        beginCaptures:
           1: {name: keyword.control.conditional.hitori}
-          2: {name: keyword.operator.logical.hitori}
+        endCaptures:
+          2: {name: punctuation.definition.section.hitori}
         patterns:
-          - begin: \s*(\()\s*
-            end: \s*(\))
-            captures:
-              1: {name: punctuation.definition.expression.hitori}
-            patterns:
-              - match: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(await)\b\s*
-                name: keyword.control.conditional.hitori
-              - include: $self
+          - match: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(await)\b\s*
+            name: keyword.control.conditional.hitori
+          - include: $self
 
       match-clause:
-        applyEndPatternLast: true
-        begin: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(match)\b\s*(?=[({])
-        end: (?=)|$
+        begin: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(match)\b\s*
+        end: \s*(:)(?=['"`({\[)}\]\w\s])|(?=[,;)}\]])|$
         name: meta.match.hitori
-        captures:
+        beginCaptures:
           1: {name: keyword.control.match.hitori}
+        endCaptures:
+          2: {name: punctuation.definition.section.hitori}
         patterns:
-          - begin: \s*(\()\s*
-            end: \s*(\))
-            captures:
-              1: {name: punctuation.definition.expression.hitori}
-            patterns:
-              - match: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(await)\b\s*
-                name: keyword.control.match.hitori
-              - include: $self
+          - match: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(await)\b\s*
+            name: keyword.control.match.hitori
           - begin: \s*(\{)\s*
             end: \s*(\})\s*
             captures:
@@ -6758,6 +6735,7 @@ repository:
             patterns:
               - include: '#match-case-clause'
               - include: $self
+          - include: $self
 
       match-case-clause:
         patterns:
@@ -6788,21 +6766,16 @@ repository:
               - include: $self
 
       switch-clause:
-        applyEndPatternLast: true
-        begin: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(switch)\b\s*(?=[({])
-        end: (?=)|$
+        begin: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(switch)\b\s*
+        end: \s*(:)(?=['"`({\[)}\]\w\s])|(?=[,;)}\]])|$
         name: meta.switch.hitori
-        captures:
+        beginCaptures:
           1: {name: keyword.control.switch.hitori}
+        endCaptures:
+          2: {name: punctuation.definition.section.hitori}
         patterns:
-          - begin: \s*(\()\s*
-            end: \s*(\))
-            captures:
-              1: {name: punctuation.definition.expression.hitori}
-            patterns:
-              - match: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(await)\b\s*
-                name: keyword.control.switch.hitori
-              - include: $self
+          - match: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(await)\b\s*
+            name: keyword.control.switch.hitori
           - begin: \s*(\{)\s*
             end: \s*(\})\s*
             captures:
@@ -6810,6 +6783,7 @@ repository:
             patterns:
               - include: '#switch-case-clause'
               - include: $self
+          - include: $self
 
       switch-case-clause:
         patterns:
@@ -7564,7 +7538,7 @@ repository:
                 |go|defer|do|with|from|where
                 |if|else|then|guard|when
                 |for|loop|while|goto|move
-                |try|throw|catch|finally|switch
+                |try|throw|catch|switch
                 |match|case|pass|def
                 |break|skip|redo|retry
                 |return|yield|await|scope
@@ -7631,7 +7605,7 @@ repository:
                 |go|defer|do|with|from|where
                 |if|else|then|guard|when
                 |for|loop|while|goto|move
-                |try|throw|catch|finally|switch
+                |try|throw|catch|switch
                 |match|case|pass|def
                 |break|skip|redo|retry
                 |return|yield|await|scope
@@ -7726,7 +7700,7 @@ repository:
                 |go|defer|do|with|from|where
                 |if|else|then|guard|when
                 |for|loop|while|goto|move
-                |try|throw|catch|finally|switch
+                |try|throw|catch|switch
                 |match|case|pass|def
                 |break|skip|redo|retry
                 |return|yield|await|scope
