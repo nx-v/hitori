@@ -93,8 +93,10 @@ changelog: |
   - Range keywords to, till and by have been removed in favor of range operators.
   - Generics now capture properly before and after function names
     For example, T.<x>, T?.<x>, T!.<x>, T::<x>, T?:<x>, T!:<x>.
-    They can even be curried: x<T><U>(y).
-    integers bigger than decimal 1114111 which now are highlighted as an error.
+    They can even be curried: x<T><U>(y), x<T><U><V>(y).
+  - Generic type parameters now work for prefix operators as well. i.e. T<&x>, etc.
+  - Fixed a bug where escape sequences for literals would accept integers bigger than 
+    decimal 1114111 which now are highlighted as an error.
   - Base 12 (0z, \z in strings and character classes) is added back,
     with A, X, T, or turned 2 for digit 10, and B, E or turned 3 for digit 11.
   - Bases 4 and 6 have been removed, though a multi-base (up to base 64)
@@ -4592,7 +4594,7 @@ repository:
           | # C-style function call
             (?:[?!:]:=?|[?!]?\.=?)? \#? [({]
           | # generics
-            (?:[?!:]:=?|[?!]?\.=?)? < [#$%]? ['"`({\[\w]
+            (?:[?!:]:=?|[?!]?\.=?)? < [\p{S}\p{P}&&[^,;'"`({\[)}\]\p{Pc}]]* ['"`({\[\w]
           | # macro calls
             ! \#? [({]
           | # strings and symbols
@@ -4647,7 +4649,7 @@ repository:
               | # C-style function call
                 (?:[?!:]:=?|[?!]?\.=?)? \#? [({]
               | # generics
-                (?:[?!:]:=?|[?!]?\.=?)? < [#$%]? ['"`({\[\w]
+                (?:[?!:]:=?|[?!]?\.=?)? < [\p{S}\p{P}&&[^,;'"`({\[)}\]\p{Pc}]]* ['"`({\[\w]
               | # macro calls
                 ! \#? [({]
               | # strings
@@ -7255,7 +7257,7 @@ repository:
           1: {name: punctuation.type.arguments.hitori}
       - comment: Support for Turbofish syntax
         name: meta.type-arguments
-        begin: (?<=^|['"`)}\]>\w\s])([?!:]:|[?!]?\.)(<)(?=[#$%]?['"`({\[\w])
+        begin: (?<=^|['"`)}\]>\w\s])([?!:]:|[?!]?\.)(<)(?=[\p{S}\p{P}&&[^,;'"`({\[)}\]\p{Pc}]]*['"`({\[\w])
         end: (?<=^|['"`)}\]>\w])()(>)(!\b)?
         captures:
           1:
@@ -7322,7 +7324,7 @@ repository:
           1: {name: punctuation.type.arguments.hitori}
       - comment: Type arguments. This is complicated since we don't want to match things like foo < 123 || bar > baz
         name: meta.type-arguments
-        begin: (?<=^|['"`)}\]>\w\s])(<)(?=[#$%]?['"`({\[\w])
+        begin: (?<=^|['"`)}\]>\w\s])(<)(?=[\p{S}\p{P}&&[^,;'"`({\[)}\]\p{Pc}]]*['"`({\[\w])
         end: (?<=^|['"`)}\]>\w]?)(>)
         captures:
           1: {name: punctuation.type.arguments.hitori}
@@ -8126,6 +8128,6 @@ repository:
         # graphics-3d
         mesh|vertex|normal|uv|texture|shader|render|draw|transform|translate|rotate|scale|projection|camera|light|ray|trace|loadobj|saveobj|loadfbx|savefbx|scene|material|bake|animate|interpolate|
         # physics
-        force|mass|velocity|acceleration|momentum|impulse|friction|gravity|collision|simulate|integrate|step|energy|potential|kinetic|torque|spring|rigidbody|particle|fluid|record|attractor|repulsor|constraint|joint|solver|dynamics|kinematics|softbody|raycast|broadphase|narrowphase|contact|transform
+        force|mass|velocity|acceleration|momentum|impulse|friction|gravity|collision|simulate|integrate|step|energy|potential|kinetic|torque|spring|rigidbody|particle|fluid|field|attractor|repulsor|constraint|joint|solver|dynamics|kinematics|softbody|raycast|broadphase|narrowphase|contact|transform
       )\b\s*
     name: support.function.core.hitori
