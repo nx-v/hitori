@@ -72,6 +72,10 @@ changelog: |
 
   New changes:
 
+  - Added keywords temp, prop, actor, realm, style, script, intern, extern,
+    assert, check, given, using.
+  - Fixed empty generics: T<> is now highlighted properly.
+  - Fixed style k-v pairs.
   - All control structures do not need to be bracketed. If the body of a
     control structure is a single statement, the braces can be omitted,
     and is replaced by a colon (:). This includes if, for, while, switch,
@@ -205,9 +209,9 @@ define:
     (?!
       (?<!(?:(?<!\.)\.|[?!:]:)=?)\b
       (?: # keywords
-        [io]n|of|as|is|new|del
+        [io]n|of|[ai]s|new|del
         |unset|ref|and|x?or|not
-        |const|let|mut|dyn|va[rl]|given|using|state
+        |const|let|mut|dyn|va[rl]|use|given|state
         |func|proc|prop|type|class|actor
         |impl|enum|module|struct|field
         |union|iter|macro|query|elem|temp
@@ -234,9 +238,9 @@ define:
 
     (?<!(?:(?<!\.)\.|[?!:]:)=?)\b
       (?: # keywords
-        [io]n|of|as|is|new|del
+        [io]n|of|[ai]s|new|del
         |unset|ref|and|x?or|not
-        |const|let|mut|dyn|va[rl]|given|using|state
+        |const|let|mut|dyn|va[rl]|use|given|state
         |func|proc|prop|type|class|actor
         |impl|enum|module|struct|field
         |union|iter|macro|query|elem|temp
@@ -355,9 +359,9 @@ repository:
       (?!
         (?<!(?:(?<!\.)\.|[?!:]:)=?)\b
         (?: # keywords
-          [io]n|of|as|is|new|del
+          [io]n|of|[ai]s|new|del
           |unset|ref|and|x?or|not
-          |const|let|mut|dyn|va[rl]|given|using|state
+          |const|let|mut|dyn|va[rl]|use|given|state
           |func|proc|prop|type|class|actor
           |impl|enum|module|struct|field
           |union|iter|macro|query|elem|temp
@@ -459,7 +463,7 @@ repository:
             (?:^|[,;'"({\[)}\]\s]) # beside a delimiter or space
             \b
               (?: # destructuring keywords
-                const|let|mut|dyn|va[rl]|given|using|state|case
+                const|let|mut|dyn|va[rl]|use|given|state|case
               )
             \b
             (?:$|[,;'"({\[)}\]\s]) # beside a delimiter or space
@@ -483,7 +487,7 @@ repository:
             (?:^|[,;'"({\[)}\]\s]) # beside a delimiter or space
             \b
               (?: # expression keywords
-                [io]n|of|as|is|new|del
+                [io]n|of|[ai]s|new|del
                 |unset|ref|and|x?or|not
               )
             \b
@@ -506,7 +510,7 @@ repository:
             (?:^|[,;'"({\[)}\]\s]) # beside a delimiter or space
             \b
               (?: # expression keywords
-                [io]n|of|as|is|new|del
+                [io]n|of|[ai]s|new|del
                 |unset|ref|and|x?or|not
               )
             \b
@@ -597,7 +601,7 @@ repository:
             (?:^|[,;'"({\[)}\]\s]) # beside a delimiter or space
             \b
               (?: # destructuring keywords
-                const|let|mut|dyn|va[rl]|given|using|state|case
+                const|let|mut|dyn|va[rl]|use|given|state|case
               )
             \b
             (?:$|[,;'"({\[)}\]\s]) # beside a delimiter or space
@@ -656,7 +660,7 @@ repository:
             (?:^|[,;'"({\[)}\]\s]) # beside a delimiter or space
             \b
               (?: # destructuring keywords
-                const|let|mut|dyn|va[rl]|given|using|state|case
+                const|let|mut|dyn|va[rl]|use|given|state|case
               )
             \b
             (?:$|[,;'"({\[)}\]\s]) # beside a delimiter or space
@@ -2323,9 +2327,9 @@ repository:
           (?!
             (?<!(?:(?<!\.)\.|[?!:]:)=?)\b
             (?: # keywords
-              [io]n|of|as|is|new|del
+              [io]n|of|[ai]s|new|del
               |unset|ref|and|x?or|not
-              |const|let|mut|dyn|va[rl]|given|using|state
+              |const|let|mut|dyn|va[rl]|use|given|state
               |func|proc|prop|type|class|actor
               |impl|enum|module|struct|field
               |union|iter|macro|query|elem|temp
@@ -2378,9 +2382,9 @@ repository:
           (?!
             (?<!(?:(?<!\.)\.|[?!:]:)=?)\b
             (?: # keywords
-              [io]n|of|as|is|new|del
+              [io]n|of|[ai]s|new|del
               |unset|ref|and|x?or|not
-              |const|let|mut|dyn|va[rl]|given|using|state
+              |const|let|mut|dyn|va[rl]|use|given|state
               |func|proc|prop|type|class|actor
               |impl|enum|module|struct|field
               |union|iter|macro|query|elem|temp
@@ -2457,9 +2461,9 @@ repository:
             (?!
               (?<!(?:(?<!\.)\.|[?!:]:)=?)\b
               (?: # keywords
-                [io]n|of|as|is|new|del
+                [io]n|of|[ai]s|new|del
                 |unset|ref|and|x?or|not
-                |const|let|mut|dyn|va[rl]|given|using|state
+                |const|let|mut|dyn|va[rl]|use|given|state
                 |func|proc|prop|type|class|actor
                 |impl|enum|module|struct|field
                 |union|iter|macro|query|elem|temp
@@ -2631,9 +2635,9 @@ repository:
           (?:^|[,;'"({\[)}\]\s]) # beside a delimiter or space
           \b
             (?: # keywords
-              [io]n|of|as|is|new|del
+              [io]n|of|[ai]s|new|del
               |unset|ref|and|x?or|not
-              |const|let|mut|dyn|va[rl]|given|using|state
+              |const|let|mut|dyn|va[rl]|use|given|state
               |func|proc|prop|type|class|actor
               |impl|enum|module|struct|field
               |union|iter|macro|query|elem|temp
@@ -3261,9 +3265,9 @@ repository:
           (?:^|[,;'"({\[)}\]\s]) # beside a delimiter or space
           \b
             (?: # keywords
-              [io]n|of|as|is|new|del
+              [io]n|of|[ai]s|new|del
               |unset|ref|and|x?or|not
-              |const|let|mut|dyn|va[rl]|given|using|state
+              |const|let|mut|dyn|va[rl]|use|given|state
               |func|proc|prop|type|class|actor
               |impl|enum|module|struct|field
               |union|iter|macro|query|elem|temp
@@ -3360,6 +3364,8 @@ repository:
     patterns:
       - match: \s*([@#&*|%.:~^?]|::)(?=[\w$'"`])
         name: punctuation.definition.entity.hitori
+      - include: '#spread-attribute'
+      - include: '#style-attribute'
       - include: '#attribute-directive'
       - include: '#attribute-assignment'
       - include: '#attribute-names'
@@ -3382,6 +3388,19 @@ repository:
         captures:
           1: {name: punctuation.definition.directive.hitori}
           2: {name: entity.other.attribute-name.directive.hitori}
+
+  style-attribute:
+    begin: \s*(style)\s*(=)\s*({)\s*
+    beginCaptures:
+      1: {name: storage.type.style.hitori}
+      2: {name: punctuation.separator.key-value.hitori}
+      3: {name: punctuation.definition.style-block.hitori}
+    end: \s*(})\s*
+    endCaptures:
+      1: {name: punctuation.definition.style-block.hitori}
+    name: meta.attribute.style.hitori
+    patterns:
+      - include: '#style-properties'
 
   attribute-assignment:
     applyEndPatternLast: true
@@ -4192,9 +4211,8 @@ repository:
       - include: '#style-properties'
 
   style-pair:
-    applyEndPatternLast: true
-    begin: \s*([\p{Pd}\w]+)\b(:)\s*
-    end: (?=|)$
+    begin: (?<=^|[;,{\[(])\s*([\p{Pd}\w]+)\b(:)\s*
+    end: (?=[;,}\])]|$)
     name: meta.property.css.hitori
     beginCaptures:
       1:
@@ -4217,6 +4235,7 @@ repository:
       - include: '#style-pair'
       - include: '#style-rules'
       - include: '#style-block'
+      - include: '#space'
       - include: $self
 
   style-rules:
@@ -4592,9 +4611,9 @@ repository:
             (?!
               (?<!(?:(?<!\.)\.|[?!:]:)=?)\b
               (?: # keywords
-                [io]n|of|as|is|new|del
+                [io]n|of|[ai]s|new|del
                 |unset|ref|and|x?or|not
-                |const|let|mut|dyn|va[rl]|given|using|state
+                |const|let|mut|dyn|va[rl]|use|given|state
                 |func|proc|prop|type|class|actor
                 |impl|enum|module|struct|field
                 |union|iter|macro|query|elem|temp
@@ -4649,9 +4668,9 @@ repository:
             (?!
               (?<!(?:(?<!\.)\.|[?!:]:)=?)\b
               (?: # keywords
-                [io]n|of|as|is|new|del
+                [io]n|of|[ai]s|new|del
                 |unset|ref|and|x?or|not
-                |const|let|mut|dyn|va[rl]|given|using|state
+                |const|let|mut|dyn|va[rl]|use|given|state
                 |func|proc|prop|type|class|actor
                 |impl|enum|module|struct|field
                 |union|iter|macro|query|elem|temp
@@ -4855,7 +4874,7 @@ repository:
               | [(|]\. \s # uncurried function
               | (?:^|[,;'"({\[)}\]|\s])
                 \b (?:
-                  const|let|mut|dyn|va[rl]|given|using|state
+                  const|let|mut|dyn|va[rl]|use|given|state
                   |func|proc|prop|type|class|actor
                   |impl|enum|module|struct|field
                   |union|iter|macro|query|elem|temp
@@ -4895,7 +4914,7 @@ repository:
               | [(|]\. \s # uncurried function
               | (?:^|[,;'"({\[)}\]|\s])
                 \b (?:
-                  const|let|mut|dyn|va[rl]|given|using|state
+                  const|let|mut|dyn|va[rl]|use|given|state
                   |func|proc|prop|type|class|actor
                   |impl|enum|module|struct|field
                   |union|iter|macro|query|elem|temp
@@ -4935,7 +4954,7 @@ repository:
               | [(|]\. \s # uncurried function
               | (?:^|[,;'"({\[)}\]|\s])
                 \b (?:
-                  const|let|mut|dyn|va[rl]|given|using|state
+                  const|let|mut|dyn|va[rl]|use|given|state
                   |func|proc|prop|type|class|actor
                   |impl|enum|module|struct|field
                   |union|iter|macro|query|elem|temp
@@ -4975,7 +4994,7 @@ repository:
               | [(|]\. \s # uncurried function
               | (?:^|[,;'"({\[)}\]|\s])
                 \b (?:
-                  const|let|mut|dyn|va[rl]|given|using|state
+                  const|let|mut|dyn|va[rl]|use|given|state
                   |func|proc|prop|type|class|actor
                   |impl|enum|module|struct|field
                   |union|iter|macro|query|elem|temp
@@ -5015,7 +5034,7 @@ repository:
               | [(|]\. \s # uncurried function
               | (?:^|[,;'"({\[)}\]|\s])
                 \b (?:
-                  const|let|mut|dyn|va[rl]|given|using|state
+                  const|let|mut|dyn|va[rl]|use|given|state
                   |func|proc|prop|type|class|actor
                   |impl|enum|module|struct|field
                   |union|iter|macro|query|elem|temp
@@ -5055,7 +5074,7 @@ repository:
               | [(|]\. \s # uncurried function
               | (?:^|[,;'"({\[)}\]|\s])
                 \b (?:
-                  const|let|mut|dyn|va[rl]|given|using|state
+                  const|let|mut|dyn|va[rl]|use|given|state
                   |func|proc|prop|type|class|actor
                   |impl|enum|module|struct|field
                   |union|iter|macro|query|elem|temp
@@ -5656,10 +5675,10 @@ repository:
             (?<!(?:(?<!\.)\.|[?!:]:)=?)
             \b
               (?:
-                pub|priv|prot|final|readonly|override
+                pub|priv|prot|final|read|write|over
                 |global|local|intern|extern|mut|immut
                 |post|[gs]et|put|del|req|opt|shared|stable
-                |safe|unsafe|virtual|sealed|abs|friend|enemy
+                |(?:un)?safe|virt|seal|abst|friend|enemy
                 |pure|impure|early|late|covar|contra
                 |in|out|inout|inplace|ref|defer|a?sync
                 |stat|dyn|lazy|eager|bound|free|unique
@@ -5674,7 +5693,7 @@ repository:
       (?=
         \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b
         (?:
-          const|let|mut|dyn|va[rl]|given|using|state
+          const|let|mut|dyn|va[rl]|use|given|state
           |func|proc|prop|type|class|actor
           |impl|enum|module|struct|field
           |union|iter|macro|query|elem|temp
@@ -5695,10 +5714,10 @@ repository:
           (?x) \s*
           \b
           (?:
-            pub|priv|prot|final|readonly|override
+            pub|priv|prot|final|read|write|over
             |global|local|intern|extern|mut|immut
             |post|[gs]et|put|del|req|opt|shared|stable
-            |safe|unsafe|virtual|sealed|abs|friend|enemy
+            |(?:un)?safe|virt|seal|abst|friend|enemy
           )
           \b
           \s*
@@ -5731,7 +5750,7 @@ repository:
     patterns:
       - match: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(declare)\b\s*
         name: keyword.other.declare.hitori
-      - match: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(const|let|mut|dyn|va[rl]|given|using|state)\b\s*
+      - match: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(const|let|mut|dyn|va[rl]|use|given|state)\b\s*
         name: storage.type.hitori
       - match: |
           (?x)
@@ -6063,6 +6082,12 @@ repository:
           - include: '#query-body'
           - include: $self
 
+  namespace-separators:
+    patterns:
+      - include: '#accessor-operators'
+      - match: (?<!\\)\\(?!\\)
+        name: punctuation.separator.namespace.hitori
+
   declarations:
     patterns:
       - include: '#variable'
@@ -6104,6 +6129,7 @@ repository:
           - include: '#style-pair'
           - include: '#style-block'
           - include: '#declaration-clause'
+          - include: '#namespace-separators'
           - match: *entity-name
             name: entity.name.style.hitori
 
@@ -6117,6 +6143,7 @@ repository:
         patterns:
           - include: '#script-block'
           - include: '#declaration-clause'
+          - include: '#namespace-separators'
           - match: *entity-name
             name: entity.name.script.hitori
 
@@ -6128,13 +6155,14 @@ repository:
           1: {name: storage.type.component.hitori}
         patterns:
           - include: '#declaration-clause'
+          - include: '#namespace-separators'
           - match: *entity-name
             name: entity.name.component.hitori
             patterns: *html-tag-names
 
       variable:
         applyEndPatternLast: true
-        begin: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(const|let|mut|dyn|va[rl]|given|using|state)\b\s*
+        begin: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(const|let|mut|dyn|va[rl]|use|given|state)\b\s*
         end: (?=)|$
         beginCaptures:
           1: {name: storage.type.variable.hitori}
@@ -6154,6 +6182,7 @@ repository:
           1: {name: storage.type.function.hitori}
         patterns:
           - include: '#declaration-clause'
+          - include: '#namespace-separators'
           - match: *entity-name
             name: entity.name.function.hitori
 
@@ -6165,6 +6194,7 @@ repository:
           1: {name: storage.type.namespace.hitori}
         patterns:
           - include: '#declaration-clause'
+          - include: '#namespace-separators'
           - match: *entity-name
             name: entity.name.namespace.hitori
 
@@ -6176,6 +6206,7 @@ repository:
           1: {name: storage.type.property.hitori}
         patterns:
           - include: '#declaration-clause'
+          - include: '#namespace-separators'
           - match: *entity-name
             name: entity.name.property.hitori
 
@@ -6187,6 +6218,7 @@ repository:
           1: {name: storage.type.procedure.hitori}
         patterns:
           - include: '#declaration-clause'
+          - include: '#namespace-separators'
           - match: *entity-name
             name: entity.name.procedure.hitori
 
@@ -6198,6 +6230,7 @@ repository:
           1: {name: storage.type.template.hitori}
         patterns:
           - include: '#declaration-clause'
+          - include: '#namespace-separators'
           - match: *entity-name
             name: entity.name.template.hitori
 
@@ -6209,6 +6242,7 @@ repository:
           1: {name: storage.type.class.hitori}
         patterns:
           - include: '#declaration-clause'
+          - include: '#namespace-separators'
           - match: *entity-name
             name: entity.name.class.hitori
 
@@ -6220,6 +6254,7 @@ repository:
           1: {name: storage.type.interface.hitori}
         patterns:
           - include: '#declaration-clause'
+          - include: '#namespace-separators'
           - match: *entity-name
             name: entity.name.interface.hitori
 
@@ -6231,6 +6266,7 @@ repository:
           1: {name: storage.type.enum.hitori}
         patterns:
           - include: '#declaration-clause'
+          - include: '#namespace-separators'
           - match: *entity-name
             name: entity.name.enum.hitori
 
@@ -6242,6 +6278,7 @@ repository:
           1: {name: storage.type.module.hitori}
         patterns:
           - include: '#declaration-clause'
+          - include: '#namespace-separators'
           - match: *entity-name
             name: entity.name.module.hitori
 
@@ -6253,6 +6290,7 @@ repository:
           1: {name: storage.type.iterator.hitori}
         patterns:
           - include: '#declaration-clause'
+          - include: '#namespace-separators'
           - match: *entity-name
             name: entity.name.iterator.hitori
 
@@ -6264,6 +6302,7 @@ repository:
           1: {name: storage.type.model.hitori}
         patterns:
           - include: '#declaration-clause'
+          - include: '#namespace-separators'
           - match: *entity-name
             name: entity.name.model.hitori
 
@@ -6275,6 +6314,7 @@ repository:
           1: {name: storage.type.macro.hitori}
         patterns:
           - include: '#declaration-clause'
+          - include: '#namespace-separators'
           - match: *entity-name
             name: entity.name.macro.hitori
 
@@ -6286,6 +6326,7 @@ repository:
           1: {name: storage.type.query.hitori}
         patterns:
           - include: '#declaration-clause'
+          - include: '#namespace-separators'
           - match: *entity-name
             name: entity.name.query.hitori
 
@@ -6297,6 +6338,7 @@ repository:
           1: {name: storage.type.object.hitori}
         patterns:
           - include: '#declaration-clause'
+          - include: '#namespace-separators'
           - match: *entity-name
             name: entity.name.object.hitori
 
@@ -6308,6 +6350,7 @@ repository:
           1: {name: storage.type.trait.hitori}
         patterns:
           - include: '#declaration-clause'
+          - include: '#namespace-separators'
           - match: *entity-name
             name: entity.name.trait.hitori
 
@@ -6319,6 +6362,7 @@ repository:
           1: {name: storage.type.realm.hitori}
         patterns:
           - include: '#declaration-clause'
+          - include: '#namespace-separators'
           - match: *entity-name
             name: entity.name.realm.hitori
 
@@ -6341,6 +6385,7 @@ repository:
           1: {name: storage.type.struct.hitori}
         patterns:
           - include: '#declaration-clause'
+          - include: '#namespace-separators'
           - match: *entity-name
             name: entity.name.struct.hitori
 
@@ -6352,6 +6397,7 @@ repository:
           1: {name: storage.type.field.hitori}
         patterns:
           - include: '#declaration-clause'
+          - include: '#namespace-separators'
           - match: *entity-name
             name: entity.name.field.hitori
 
@@ -6424,10 +6470,10 @@ repository:
               \s*
               \b
               (?: # Modifier keywords
-                pub|priv|prot|final|readonly|override
+                pub|priv|prot|final|read|write|over
                 |global|local|intern|extern|mut|immut
                 |post|[gs]et|put|del|req|opt
-                |safe|unsafe|virtual|sealed|abs|friend|enemy
+                |(?:un)?safe|virt|seal|abst|friend|enemy
                 |pure|impure|early|late|covar|contra
                 |in|out|inout|inplace|ref|defer|a?sync
                 |stat|dyn|lazy|eager|bound|free|unique
@@ -6473,10 +6519,10 @@ repository:
               \s*
               \b
               (?: # Modifier keywords
-                pub|priv|prot|final|readonly|override
+                pub|priv|prot|final|read|write|over
                 |global|local|intern|extern|mut|immut
                 |post|[gs]et|put|del|req|opt
-                |safe|unsafe|virtual|sealed|abs|friend|enemy
+                |(?:un)?safe|virt|seal|abst|friend|enemy
                 |pure|impure|early|late|covar|contra
                 |in|out|inout|inplace|ref|defer|a?sync
                 |stat|dyn|lazy|eager|bound|free|unique
@@ -6520,10 +6566,10 @@ repository:
               \s*
               \b
               (?: # Modifier keywords
-                pub|priv|prot|final|readonly|override
+                pub|priv|prot|final|read|write|over
                 |global|local|intern|extern|mut|immut
                 |post|[gs]et|put|del|req|opt
-                |safe|unsafe|virtual|sealed|abs|friend|enemy
+                |(?:un)?safe|virt|seal|abst|friend|enemy
                 |pure|impure|early|late|covar|contra
                 |in|out|inout|inplace|ref|defer|a?sync
                 |stat|dyn|lazy|eager|bound|free|unique
@@ -6569,10 +6615,10 @@ repository:
               \s*
               \b
               (?: # Modifier keywords
-                pub|priv|prot|final|readonly|override
+                pub|priv|prot|final|read|write|over
                 |global|local|intern|extern|mut|immut
                 |post|[gs]et|put|del|req|opt
-                |safe|unsafe|virtual|sealed|abs|friend|enemy
+                |(?:un)?safe|virt|seal|abst|friend|enemy
                 |pure|impure|early|late|covar|contra
                 |in|out|inout|inplace|ref|defer|a?sync
                 |stat|dyn|lazy|eager|bound|free|unique
@@ -6618,9 +6664,9 @@ repository:
           (?:^|[,;'"({\[)}\]\s]) # beside a delimiter or space
           \b
             (?: # keywords
-              [io]n|of|as|is|new|del
+              [io]n|of|[ai]s|new|del
               |unset|ref|and|x?or|not
-              |const|let|mut|dyn|va[rl]|given|using|state
+              |const|let|mut|dyn|va[rl]|use|given|state
               |func|proc|prop|type|class|actor
               |impl|enum|module|struct|field
               |union|iter|macro|query|elem|temp
@@ -6682,6 +6728,7 @@ repository:
           - include: '#type-keywords'
           - include: '#type-square-brackets'
           - include: '#parameter-brackets'
+          - include: '#namespace-separators'
           - include: '#round-brackets'
 
       type-clause:
@@ -7037,10 +7084,10 @@ repository:
               \s*
               \b
               (?: # Modifier keywords
-                pub|priv|prot|final|readonly|override
+                pub|priv|prot|final|read|write|over
                 |global|local|intern|extern|mut|immut
                 |post|[gs]et|put|del|req|opt
-                |safe|unsafe|virtual|sealed|abs|friend|enemy
+                |(?:un)?safe|virt|seal|abst|friend|enemy
                 |pure|impure|early|late|covar|contra
                 |in|out|inout|inplace|ref|defer|a?sync
                 |stat|dyn|lazy|eager|bound|free|unique
@@ -7086,10 +7133,10 @@ repository:
               \s*
               \b
               (?: # Modifier keywords
-                pub|priv|prot|final|readonly|override
+                pub|priv|prot|final|read|write|over
                 |global|local|intern|extern|mut|immut
                 |post|[gs]et|put|del|req|opt
-                |safe|unsafe|virtual|sealed|abs|friend|enemy
+                |(?:un)?safe|virt|seal|abst|friend|enemy
                 |pure|impure|early|late|covar|contra
                 |in|out|inout|inplace|ref|defer|a?sync
                 |stat|dyn|lazy|eager|bound|free|unique
@@ -7304,7 +7351,7 @@ repository:
             (?:^|[,;'"({\[)}\]\s]) # beside a delimiter or space
             \b
               (?: # destructuring keywords
-                const|let|mut|dyn|va[rl]|given|using|state|case
+                const|let|mut|dyn|va[rl]|use|given|state|case
               )
             \b
             (?:$|[,;'"({\[)}\]\s]) # beside a delimiter or space
@@ -7329,7 +7376,7 @@ repository:
             (?:^|[,;'"({\[)}\]\s]) # beside a delimiter or space
             \b
               (?: # expression keywords
-                [io]n|of|as|is|new|del
+                [io]n|of|[ai]s|new|del
                 |unset|ref|and|x?or|not
               )
             \b
@@ -7353,7 +7400,7 @@ repository:
             (?:^|[,;'"({\[)}\]\s]) # beside a delimiter or space
             \b
               (?: # expression keywords
-                [io]n|of|as|is|new|del
+                [io]n|of|[ai]s|new|del
                 |unset|ref|and|x?or|not
               )
             \b
@@ -7448,7 +7495,7 @@ repository:
             (?:^|[,;'"({\[)}\]\s]) # beside a delimiter or space
             \b
               (?: # destructuring keywords
-                const|let|mut|dyn|va[rl]|given|using|state|case
+                const|let|mut|dyn|va[rl]|use|given|state|case
               )
             \b
             (?:$|[,;'"({\[)}\]\s]) # beside a delimiter or space
@@ -7508,7 +7555,7 @@ repository:
             (?:^|[,;'"({\[)}\]\s]) # beside a delimiter or space
             \b
               (?: # destructuring keywords
-                const|let|mut|dyn|va[rl]|given|using|state|case
+                const|let|mut|dyn|va[rl]|use|given|state|case
               )
             \b
             (?:$|[,;'"({\[)}\]\s]) # beside a delimiter or space
@@ -7529,7 +7576,7 @@ repository:
             (?:^|[,;'"({\[)}\]\s]) # beside a delimiter or space
             \b
               (?: # destructuring keywords
-                [io]n|of|as|is|new|del
+                [io]n|of|[ai]s|new|del
                 |unset|ref|and|x?or|not
               )
             \b
@@ -7550,7 +7597,7 @@ repository:
             (?:^|[,;'"({\[)}\]\s]) # beside a delimiter or space
             \b
               (?: # destructuring keywords
-                [io]n|of|as|is|new|del
+                [io]n|of|[ai]s|new|del
                 |unset|ref|and|x?or|not
               )
             \b
@@ -7614,9 +7661,9 @@ repository:
             (?!
               (?<!(?:(?<!\.)\.|[?!:]:)=?)\b
               (?: # keywords
-                [io]n|of|as|is|new|del
+                [io]n|of|[ai]s|new|del
                 |unset|ref|and|x?or|not
-                |const|let|mut|dyn|va[rl]|given|using|state
+                |const|let|mut|dyn|va[rl]|use|given|state
                 |func|proc|prop|type|class|actor
                 |impl|enum|module|struct|field
                 |union|iter|macro|query|elem|temp
@@ -7681,9 +7728,9 @@ repository:
             (?!
               (?<!(?:(?<!\.)\.|[?!:]:)=?)\b
               (?: # keywords
-                [io]n|of|as|is|new|del
+                [io]n|of|[ai]s|new|del
                 |unset|ref|and|x?or|not
-                |const|let|mut|dyn|va[rl]|given|using|state
+                |const|let|mut|dyn|va[rl]|use|given|state
                 |func|proc|prop|type|class|actor
                 |impl|enum|module|struct|field
                 |union|iter|macro|query|elem|temp
@@ -7776,9 +7823,9 @@ repository:
             (?!
               (?<!(?:(?<!\.)\.|[?!:]:)=?)\b
               (?: # keywords
-                [io]n|of|as|is|new|del
+                [io]n|of|[ai]s|new|del
                 |unset|ref|and|x?or|not
-                |const|let|mut|dyn|va[rl]|given|using|state
+                |const|let|mut|dyn|va[rl]|use|given|state
                 |func|proc|prop|type|class|actor
                 |impl|enum|module|struct|field
                 |union|iter|macro|query|elem|temp
@@ -7888,10 +7935,10 @@ repository:
         match: |
           (?x)\s*(?<![?!]?\.|[?!:]:)\b(
             # upper flat case
-            Bool|Char|Rune|Str|Sym
+            Bool|Char|Rune|Str|Sym|Text
             |(Big)?(Num|Nat|U?Int|Float|Frac|Real|Imag|Complex)
             # lower flat case
-            |bool|char|rune|str|sym
+            |bool|char|rune|str|sym|text
             |(big)?(num|nat|u?int|float|frac|real|imag|complex)
             # upper flat case
             |[iucjf](8|16|32|64|128|256|512|1024)
