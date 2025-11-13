@@ -213,7 +213,7 @@ define:
     (?!
       (?<!(?:(?<!\.)\.|[?!:]:)=?)\b
       (?: # keywords
-        [io]n|of|[ai]s|new|del
+        [io]n|of|[ai]s|new|del|old
         |unset|ref|and|x?or|not
         |const|let|mut|dyn
         |va[rl]|use|given|state
@@ -243,7 +243,7 @@ define:
 
     (?<!(?:(?<!\.)\.|[?!:]:)=?)\b
       (?: # keywords
-        [io]n|of|[ai]s|new|del
+        [io]n|of|[ai]s|new|del|old
         |unset|ref|and|x?or|not
         |const|let|mut|dyn
         |va[rl]|use|given|state
@@ -367,7 +367,7 @@ repository:
       (?!
         (?<!(?:(?<!\.)\.|[?!:]:)=?)\b
         (?: # keywords
-          [io]n|of|[ai]s|new|del
+          [io]n|of|[ai]s|new|del|old
           |unset|ref|and|x?or|not
           |const|let|mut|dyn
           |va[rl]|use|given|state
@@ -498,7 +498,7 @@ repository:
             (?:^|[,;'"({\[)}\]\s]) # beside a delimiter or space
             \b
               (?: # expression keywords
-                [io]n|of|[ai]s|new|del
+                [io]n|of|[ai]s|new|del|old
                 |unset|ref|and|x?or|not
               )
             \b
@@ -521,7 +521,7 @@ repository:
             (?:^|[,;'"({\[)}\]\s]) # beside a delimiter or space
             \b
               (?: # expression keywords
-                [io]n|of|[ai]s|new|del
+                [io]n|of|[ai]s|new|del|old
                 |unset|ref|and|x?or|not
               )
             \b
@@ -755,6 +755,18 @@ repository:
         captures:
           1: {name: keyword.operator.union.hitori}
           2: {name: keyword.operator.union.hitori}
+      - comment: pointers
+        match: (?<=^|[,;'"`({\[)}\]\w*&\s]|\\.)(\*)(?=['"`({\[\w*&])|(?<=['"`)}\]\w*&]|\\.)(\*)(?=$|[,;'"`({\[)}\]\w*&\s])|(?<=[(\[{*&]\s*)(\*)(?=\s*[*&)\]}])
+        captures:
+          1: {name: keyword.operator.pointer.hitori}
+          2: {name: keyword.operator.pointer.hitori}
+          3: {name: keyword.operator.pointer.hitori}
+      - comment: references
+        match: (?<=^|[,;'"`({\[)}\]\w*&\s]|\\.)(\&)(?=['"`({\[\w*&])|(?<=['"`)}\]\w*&]|\\.)(\&)(?=$|[,;'"`({\[)}\]\w*&\s])|(?<=[(\[{*&]\s*)(\&)(?=\s*[*&)\]}])
+        captures:
+          1: {name: keyword.operator.reference.hitori}
+          2: {name: keyword.operator.reference.hitori}
+          3: {name: keyword.operator.reference.hitori}
       - comment: type operators
         match: |
           (?x)
@@ -2342,7 +2354,7 @@ repository:
           (?!
             (?<!(?:(?<!\.)\.|[?!:]:)=?)\b
             (?: # keywords
-              [io]n|of|[ai]s|new|del
+              [io]n|of|[ai]s|new|del|old
               |unset|ref|and|x?or|not
               |const|let|mut|dyn
               |va[rl]|use|given|state
@@ -2398,7 +2410,7 @@ repository:
           (?!
             (?<!(?:(?<!\.)\.|[?!:]:)=?)\b
             (?: # keywords
-              [io]n|of|[ai]s|new|del
+              [io]n|of|[ai]s|new|del|old
               |unset|ref|and|x?or|not
               |const|let|mut|dyn
               |va[rl]|use|given|state
@@ -2478,7 +2490,7 @@ repository:
             (?!
               (?<!(?:(?<!\.)\.|[?!:]:)=?)\b
               (?: # keywords
-                [io]n|of|[ai]s|new|del
+                [io]n|of|[ai]s|new|del|old
                 |unset|ref|and|x?or|not
                 |const|let|mut|dyn
                 |va[rl]|use|given|state
@@ -2653,7 +2665,7 @@ repository:
           (?:^|[,;'"({\[)}\]\s]) # beside a delimiter or space
           \b
             (?: # keywords
-              [io]n|of|[ai]s|new|del
+              [io]n|of|[ai]s|new|del|old
               |unset|ref|and|x?or|not
               |const|let|mut|dyn
               |va[rl]|use|given|state
@@ -3284,7 +3296,7 @@ repository:
           (?:^|[,;'"({\[)}\]\s]) # beside a delimiter or space
           \b
             (?: # keywords
-              [io]n|of|[ai]s|new|del
+              [io]n|of|[ai]s|new|del|old
               |unset|ref|and|x?or|not
               |const|let|mut|dyn
               |va[rl]|use|given|state
@@ -4631,7 +4643,7 @@ repository:
             (?!
               (?<!(?:(?<!\.)\.|[?!:]:)=?)\b
               (?: # keywords
-                [io]n|of|[ai]s|new|del
+                [io]n|of|[ai]s|new|del|old
                 |unset|ref|and|x?or|not
                 |const|let|mut|dyn
                 |va[rl]|use|given|state
@@ -4689,7 +4701,7 @@ repository:
             (?!
               (?<!(?:(?<!\.)\.|[?!:]:)=?)\b
               (?: # keywords
-                [io]n|of|[ai]s|new|del
+                [io]n|of|[ai]s|new|del|old
                 |unset|ref|and|x?or|not
                 |const|let|mut|dyn
                 |va[rl]|use|given|state
@@ -5735,7 +5747,7 @@ repository:
             (?!
               (?<!(?:(?<!\.)\.|[?!:]:)=?)\b
               (?: # keywords
-                [io]n|of|[ai]s|new|del
+                [io]n|of|[ai]s|new|del|old
                 |unset|ref|and|x?or|not
                 |const|let|mut|dyn
                 |va[rl]|use|given|state
@@ -5762,7 +5774,7 @@ repository:
             (?!
               (?<!(?:(?<!\.)\.|[?!:]:)=?)\b
               (?: # keywords
-                [io]n|of|[ai]s|new|del
+                [io]n|of|[ai]s|new|del|old
                 |unset|ref|and|x?or|not
                 |const|let|mut|dyn
                 |va[rl]|use|given|state
@@ -5871,7 +5883,7 @@ repository:
   expression-keywords:
     comment: expression keywords
     patterns:
-      - match: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(as|new)\b\s*
+      - match: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(as|new|old)\b\s*
         name: keyword.operator.expression.$1.hitori
       - match: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(not\s+)?([io]n|of)\b\s*
         name: keyword.operator.expression.$2.hitori
@@ -6773,7 +6785,7 @@ repository:
           (?:^|[,;'"({\[)}\]\s]) # beside a delimiter or space
           \b
             (?: # keywords
-              [io]n|of|[ai]s|new|del
+              [io]n|of|[ai]s|new|del|old
               |unset|ref|and|x?or|not
               |const|let|mut|dyn
               |va[rl]|use|given|state
@@ -6827,7 +6839,7 @@ repository:
     repository:
       new-clause:
         applyEndPatternLast: true
-        begin: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(new)\b
+        begin: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(new|old)\b
         end: (?=)|$
         beginCaptures:
           1: {name: keyword.operator.expression.$1.hitori}
@@ -7494,7 +7506,7 @@ repository:
             (?:^|[,;'"({\[)}\]\s]) # beside a delimiter or space
             \b
               (?: # expression keywords
-                [io]n|of|[ai]s|new|del
+                [io]n|of|[ai]s|new|del|old
                 |unset|ref|and|x?or|not
               )
             \b
@@ -7518,7 +7530,7 @@ repository:
             (?:^|[,;'"({\[)}\]\s]) # beside a delimiter or space
             \b
               (?: # expression keywords
-                [io]n|of|[ai]s|new|del
+                [io]n|of|[ai]s|new|del|old
                 |unset|ref|and|x?or|not
               )
             \b
@@ -7698,7 +7710,7 @@ repository:
             (?:^|[,;'"({\[)}\]\s]) # beside a delimiter or space
             \b
               (?: # destructuring keywords
-                [io]n|of|[ai]s|new|del
+                [io]n|of|[ai]s|new|del|old
                 |unset|ref|and|x?or|not
               )
             \b
@@ -7719,7 +7731,7 @@ repository:
             (?:^|[,;'"({\[)}\]\s]) # beside a delimiter or space
             \b
               (?: # destructuring keywords
-                [io]n|of|[ai]s|new|del
+                [io]n|of|[ai]s|new|del|old
                 |unset|ref|and|x?or|not
               )
             \b
@@ -7783,7 +7795,7 @@ repository:
             (?!
               (?<!(?:(?<!\.)\.|[?!:]:)=?)\b
               (?: # keywords
-                [io]n|of|[ai]s|new|del
+                [io]n|of|[ai]s|new|del|old
                 |unset|ref|and|x?or|not
                 |const|let|mut|dyn
                 |va[rl]|use|given|state
@@ -7836,7 +7848,8 @@ repository:
           (?x)
           (?<= # literal
             (?: 
-                [\w'"`)}\]] # literals and closing brackets
+                ^ # start of line
+              | [\w'"`)}\]] # literals and closing brackets
               | [?!:]:[\p{Pc}\p{L}]\w* # identifiers
               | [?!][\p{Pc}\p{L}]\w* # identifiers
               | \\. # escape sequences
@@ -7851,7 +7864,7 @@ repository:
             (?!
               (?<!(?:(?<!\.)\.|[?!:]:)=?)\b
               (?: # keywords
-                [io]n|of|[ai]s|new|del
+                [io]n|of|[ai]s|new|del|old
                 |unset|ref|and|x?or|not
                 |const|let|mut|dyn
                 |va[rl]|use|given|state
@@ -7930,12 +7943,72 @@ repository:
           - include: '#brackets'
       - match: |
           (?x)
+          (?<=\[)
+          \s*
+          ( # Message name
+            \b
+            # ignore all keywords
+            (?!
+              (?<!(?:(?<!\.)\.|[?!:]:)=?)\b
+              (?: # keywords
+                [io]n|of|[ai]s|new|del|old
+                |unset|ref|and|x?or|not
+                |const|let|mut|dyn
+                |va[rl]|use|given|state
+                |func|proc|prop|type|class|actor
+                |impl|enum|module|struct|record
+                |union|iter|macro|query|elem|temp
+                |object|realm|trait|style|script|quote
+                |go|defer|do|with|from|where
+                |if|else|then|guard|when
+                |for|loop|while|goto|move
+                |try|throw|catch|switch
+                |match|case|pass|def
+                |break|skip|redo|retry
+                |return|yield|await|scope
+                |import|export|intern|extern
+                |debug|assert|check|decl
+              )
+              \b
+            )
+            \b
+            [\p{Pc}\p{L}]\w* # identifier
+            \b
+          )
+          (?=(?:[?!]:?|::)?\s+\b)
+        name: meta.message.hitori
+        captures:
+          1:
+            patterns:
+              - match: |
+                  (?x)
+                  (?: # Regular variables
+                    # Leading underscore
+                    (\p{Pc}+\w*\b(?!\p{Pc}+))
+                  | # Train case
+                    ([\p{L}&&\P{Ll}][\w&&\P{Ll}]*)
+                  | # Pascal case
+                    ((?:[\p{Pc}\p{L}&&\P{Ll}][\w&&\P{Lu}]*)+)
+                  | # Camel or kebab case
+                    ([\p{Pc}\p{L}]\w*)
+                  )
+                captures:
+                  1: {name: variable.other.global.hitori}
+                  2: {name: variable.other.constant.object.hitori}
+                  3: {name: variable.other.class.stat.hitori}
+                  4: {name: variable.other.object.hitori}
+      - match: |
+          (?x)
           (?<= # literal
             (?: 
                 [\w'"`)}\]] # literals and closing brackets
               | [?!:]:[\p{Pc}\p{L}]\w* # identifiers
               | [?!][\p{Pc}\p{L}]\w* # identifiers
               | \\. # escape sequences
+              | !:?\s+\b # assertion/call operator
+              | \?:?\s+\b # optional accessor
+              | (?:::|\.)\s+\b # accessor operator
+              | \b\s+\b # identifiers
             ) 
             \s*
           )
@@ -7947,7 +8020,7 @@ repository:
             (?!
               (?<!(?:(?<!\.)\.|[?!:]:)=?)\b
               (?: # keywords
-                [io]n|of|[ai]s|new|del
+                [io]n|of|[ai]s|new|del|old
                 |unset|ref|and|x?or|not
                 |const|let|mut|dyn
                 |va[rl]|use|given|state
@@ -8060,14 +8133,14 @@ repository:
         match: |
           (?x)\s*(?<![?!]?\.|[?!:]:)\b(
             # upper flat case
-            Bool|Char|Rune|Str|Sym|Text
+            Bool|Char|Rune|Str|Sym|Text|Buf
             |(Big)?(Num|Nat|U?Int|Float|Frac|Real|Imag|Complex)
             # lower flat case
-            |bool|char|rune|str|sym|text
+            |bool|char|rune|str|sym|text|buf
             |(big)?(num|nat|u?int|float|frac|real|imag|complex)
             # upper flat case
-            |[iucjf](8|16|32|64|128|256|512|1024)
-            |[IUCJF](8|16|32|64|128|256|512|1024)
+            |[iucjfb](8|16|32|64|128|256|512|1024)
+            |[IUCJFB](8|16|32|64|128|256|512|1024)
           )\b
         name: support.type.builtin.primitive.hitori
       - comment: Data query classes
@@ -8107,6 +8180,120 @@ repository:
       - comment: Algebraic data types
         match: \s*\b(Some|None|Just|Ok|Err|Left|Right)\b\s*
         name: support.class.algebraic.hitori
+      - include: '#support-classes'
+
+  support-classes:
+    comment: Names for general support classes in Hitori standard library
+    patterns:
+      - match: |
+          (?x)
+          \s*\b(
+            # Core structures
+            Async|Await|Promise|Future|Task|Coroutine|EventLoop|Channel|Actor|Mutex|Semaphore|Lock|Condition|Thread|
+            Process|Pool|Queue|Stack|Graph|Tree|Trie|Heap|Buffer|Stream|RegExp|Parser|Serializer|Deserializer|
+            Validator|Observer|Subscriber|Publisher|Logger|Config|Settings|Env|EnvVar|EnvFile|EnvSource|
+            # Data structures
+            Array|List|LinkedList|DoublyLinkedList|CircularList|Stack|Queue|Deque|Set|HashSet|TreeSet|OrderedSet|
+            Map|HashMap|TreeMap|Dict|Record|Tuple|Range|Interval|Matrix|Vector|Graph|Node|Edge|
+            # String handling
+            String|StrBuilder|StrBuffer|StrReader|StrWriter|Regex|Pattern|Matcher|Tokenizer|Formatter|Parser|
+            # Math
+            Math|Calculator|Algebra|Geometry|Trigonometry|Statistics|Probability|LinearAlgebra|MatrixOps|
+            VectorOps|ComplexNumber|BigNumber|
+            # File system
+            Path|Directory|Folder|FileSystem|FileInfo|FileAttributes|FilePermissions|Attribute|Metadata|Permission|
+            Disk|Volume|Filesystem|FilesystemEntry|FilesystemItem|FilesystemObject|FilesystemDirectory|FilesystemFile|
+            # Networking
+            URL|URI|Endpoint|Connection|Protocol|Request|Response|Header|Cookie|Session|WebSocket|TcpClient|TcpServer|UdpClient|UdpServer|
+            # Cryptography
+            Cipher|Decipher|Hash|HMAC|Signature|Key|Certificate|SSL|TLS|Encryption|Decryption|
+            # Math
+            Calculator|Algebra|Geometry|Trigonometry|Statistics|Probability|LinearAlgebra|MatrixOps|VectorOps|ComplexNumber|BigNumber|
+            # I/O
+            File|FileReader|FileWriter|FileStream|Socket|HttpRequest|HttpResponse|FtpClient|FtpServer|SshClient|SshServer|
+            # Utilities
+            DateTime|Date|Time|Duration|Timer|Random|UUID|Hash|Crypto|Encoding|Decoding|
+            Compression|Decompression|Cache|Memoize|Profiler|Benchmark|
+            # System
+            System|OS|Process|Thread|Memory|CPU|Network|Disk|Environment|Signal|OSInfo|OSProcess|
+            OSThread|ExceptionHandler|ErrorHandler|ResourceManager|ObjectPool|PluginManager|OperationQueue|
+            # Graphics
+            Image|Canvas|Context|Shader|Texture|Sprite|Font|Color|Palette|
+            # UI
+            Window|Button|Label|TextBox|TextArea|CheckBox|RadioButton|
+            Slider|ProgressBar|Menu|Toolbar|Dialog|Panel|Layout|
+            # Database
+            Database|Connection|Query|Transaction|RecordSet|ORM|Model|Schema|Adapter|Driver|Migration|
+            # Others
+            Plugin|Module|Extension|Adapter|Driver|Middleware|Service|Controller|Repository|Manager|Factory|
+            Builder|Singleton|Facade|Decorator|Strategy|Observer|Command|Mediator|Visitor|State|
+            Prototype|Composite|Flyweight|Bridge|ChainOfResponsibility|Interpreter|Memento|TemplateMethod|Visitor|
+            # Shaderlab
+            Shader|Properties|SubShader|Pass|Category|Technique|Fallback|CustomEditor
+            Range|Float|Int|Color|Vector|2D|3D|Cube|Any|Fixed|Half|Float|Auto|Double|Quad
+            Shader|Properties|SubShader|Pass|Category|Name|Tags|Fallback|CustomEditor|
+            Cull|ZWrite|ZTest|Offset|Blend|BlendOp|ColorMask|AlphaToMask|LOD|Lighting|
+            Stencil|Ref|ReadMask|WriteMask|Comp|CompBack|CompFront|Fail|ZFail|UsePass|
+            GrabPass|Dependency|Material|Diffuse|Ambient|Shininess|Specular|Emission|
+            Fog|Mode|Density|SeparateSpecular|SetTexture|Combine|ConstantColor|Matrix|
+            AlphaTest|ColorMaterial|BindChannels|Bind|Back|Front|On|Off|[RGBA]{1,3}|
+            AmbientAndDiffuse|Emission|Less|Greater|LEqual|GEqual|Equal|NotEqual|Always|
+            Never|LessEqual|GreaterEqual|Add|Sub|RevSub|Min|Max|Multiply|Keep|Zero|Replace|
+            IncrSat|DecrSat|Invert|IncrWrap|DecrWrap|Previous|Primary|Texture|Constant|
+            Lerp|Double|Quad|Alpha|Global|Linear|Exp2?Vertex|Normal|Tangent|TexCoord[01]|
+            Binormal|Color|Add|Sub|RevSub|Min|Max|LogicalClear|LogicalSet|LogicalCopyInverted|
+            LogicalCopy|LogicalNoop|LogicalInvert|LogicalAnd|LogicalNand|LogicalOr|
+            LogicalNor|LogicalXor|LogicalEquiv|LogicalAndReverse|LogicalAndInverted|
+            LogicalOrReverse|LogicalOrInverted|One|Zero|SrcColor|SrcAlpha|DstColor|DstAlpha|
+            OneMinusSrcColor|OneMinusSrcAlpha|OneMinusDstColor|OneMinusDstAlpha|
+            SurfaceOutputStandardSpecular|SurfaceOutputStandard|SurfaceOutput|Input|Output|
+            # Others
+            Handler|Listener|Delegate|Callback|Event|Signal|Slot|Emitter|Receiver|
+            Interceptor|Filter|Validator|Converter|Serializer|Deserializer|Marshaller|
+            Unmarshaller|Adapter|Proxy|Stub|Skeleton|Binder|Invoker|Dispatcher|
+            Router|Scheduler|Executor|Coordinator|Orchestrator|Aggregator|Collector|Monitor|
+            Tracker|Analyzer|Reporter|Logger|Auditor|Inspector|Debugger|Profiler|Tracer|
+            Instrumentor|Visualizer|Renderer|Animator|Simulator|Emulator|Compiler|Interpreter|
+            Assembler|Linker|Loader|Debugger|Profiler|Optimizer|Transpiler|Bundler|Minifier|
+            Obfuscator|Formatter|Linter|Validator|Tester|Mocker|Fuzzer|Coverage|Benchmark|
+            Deployer|Packager|Publisher|Distributor|Installer|Updater|Migrator|Backup|
+            Restorer|Cleaner|Watcher|Listener|Notifier|Alert|Scheduler|Timer|Clock|Calendar
+            |Alarm|Reminder|Event|Task|Job|Workflow|Pipeline|Process|Activity|Action|Step|
+            Phase|Stage|Milestone|Goal|Objective|Target|Metric|KPI|Indicator|Benchmark|
+            Standard|Policy|Procedure|Protocol|Guideline|Framework|Architecture|Pattern|BestPractice|
+            # AI/ML
+            Model|Dataset|Trainer|Evaluator|Predictor|Classifier|Regressor|Clusterer|Transformer|
+            Preprocessor|FeatureExtractor|NeuralNetwork|Layer|Node|Edge|ActivationFunction|
+            LossFunction|Optimizer|Scheduler|Pipeline|Experiment|Session|Tensor|MatrixOps|
+            # Data Science
+            DataFrame|Series|Index|GroupBy|PivotTable|Plot|Chart|Graph|Visualizer|Statistic|
+            Distribution|Correlation|Regression|HypothesisTest|ANOVA|ChiSquare|TTest|ZTest|
+            Bootstrap|Resample|Sample|Population|Estimator|Predictor|Model|Trainer|Evaluator|
+            Pipeline|FeatureSelector|DimensionalityReducer|
+            # Web Development
+            Router|Middleware|Controller|View|Template|Layout|Component|Service|Repository|Model|
+            ORM|Migration|Seeder|Factory|Validator|Sanitizer|Authenticator|Authorizer|SessionManager|
+            CacheManager|Logger|ErrorHandler|ExceptionHandler|Request|Response|Header|Cookie|Session|
+            Flash|Form|Input|Output|FileUploader|FileDownloader|Emailer|Notification|Event|Listener|
+            Subscriber|Publisher|
+            # Mobile Development
+            Activity|Fragment|View|Layout|Adapter|Service|BroadcastReceiver|ContentProvider|Intent|
+            Bundle|Resource|Asset|Manifest|Gradle|Proguard|JNI|NDK|SDK|Emulator|Simulator|Profiler|
+            Debugger|Tester|BuildTool|DependencyManager|UIThread|MainThread|BackgroundThread|
+            AsyncTask|Handler|Looper|MessageQueue|NotificationManager|LocationManager|SensorManager|
+            ConnectivityManager|TelephonyManager|Camera|MediaPlayer|AudioManager|Vibrator|
+            # Game Development
+            GameObject|Component|Transform|Renderer|Collider|Rigidbody|Animator|Camera|
+            Light|AudioSource|ParticleSystem|NavMeshAgent|ScriptableObject|Prefab|
+            Terrain|Skybox|UIElement|Canvas|EventSystem|InputManager|PhysicsManager|
+            AnimationClip|AnimationController|Shader|Material|Texture|Mesh|Sprite|Tilemap|
+            # AI/ML
+            NeuralNetwork|Layer|Node|Edge|ActivationFunction|LossFunction|Optimizer|Trainer|
+            Evaluator|Predictor|Classifier|Regressor|Clusterer|Transformer|Preprocessor|
+            FeatureExtractor|Dataset|Model|Pipeline|Experiment|Session|Tensor|MatrixOps
+          )
+          \b\s*
+        name: support.class.hitori
 
   support-functions:
     comment: |
@@ -8130,6 +8317,8 @@ repository:
     comment: core utility + stdlib + extended functional sets across major langs and hitori core.
     match: |
       (?x)\s*\b(
+        # hitori
+        abs|append|apply|ceil|clone|concat|contains|copy|count|delete|dict|div|each|filter|find|floor|fold|format|get|has|indexof|insert|join|keys|len|map|max|min|pop|push|range|reduce|replace|reverse|set|slice|sort|split|str|substr|sum|toarray|todict|tolist|touppercase|tolowercase|trim|unique|update|values|zip|
         # python core
         print|input|len|type|id|isinstance|hasattr|getattr|setattr|delattr|dir|sorted|reversed|enumerate|range|zip|map|filter|reduce|all|any|min|max|sum|abs|round|pow|divmod|eval|exec|format|hash|help|is|ord|chr|bin|oct|hex|slice|super|vars|globals|locals|callable|compile|memoryview|next|object|property|repr|staticmethod|classmethod|size|length|count|append|extend|insert|remove|pop|clear|copy|update|keys|values|items|get|setdefault|fromkeys|join|split|replace|find|index|upper|lower|strip|lstrip|rstrip|startswith|endswith|formatmap|capitalize|title|swapcase|isdigit|isalpha|isalnum|isnumeric|isdecimal|isspace|iter|reversed|ziplongest|chain|accumulate|groupby|permutations|combinations|combinations_replacement|
         # string ops
@@ -8189,10 +8378,56 @@ repository:
         # audio-processing
         readwav|writewav|mp3encode|mp3decode|normalize|compress|expand|eq|reverb|chorus|delay|mix|fft|ifft|spectrogram|noisegate|denoise|
         # video
-        loadvideo|savevideo|capture|frame|seekframe|readframe|writeframe|fps|resize|crop|rotate|merge|overlay|render|encode|decode|stream|compress|decompress|thumbnail|
+        loadvideo|savevideo|capture|frame|seekframe|readframe|writeframe|fps|resize|crop|rotate|merge|overlay|render|encode|decode|stream|compress|decompress|thumbnail|addaudio|removeaudio|overlay|
         # graphics-3d
         mesh|vertex|normal|uv|texture|shader|render|draw|transform|translate|rotate|scale|projection|camera|light|ray|trace|loadobj|saveobj|loadfbx|savefbx|scene|material|bake|animate|interpolate|
         # physics
-        force|mass|velocity|acceleration|momentum|impulse|friction|gravity|collision|simulate|integrate|step|energy|potential|kinetic|torque|spring|rigidbody|particle|fluid|field|attractor|repulsor|constraint|joint|solver|dynamics|kinematics|softbody|raycast|broadphase|narrowphase|contact|transform
+        force|mass|velocity|acceleration|momentum|impulse|friction|gravity|collision|simulate|integrate|step|energy|potential|kinetic|torque|spring|rigidbody|particle|fluid|field|attractor|repulsor|constraint|joint|solver|dynamics|kinematics|softbody|raycast|broadphase|narrowphase|contact|transform|
+        # perl
+        eager|hyper|substr|index|rindex|grep|map|sort|join|lines|hints|chmod|split|reduce|min|max|reverse|truncate|zip|cat|roundrobin|classify|first|sum|keys|values|pairs|defined|delete|exists|elems|end|kv|any|all|one|wrap|shape|key|value|name|pop|push|shift|splice|unshift|floor|ceiling|abs|exp|log|log10|rand|sign|sqrt|sin|cos|tan|round|strand|roots|cis|unpolar|polar|atan2|pick|chop|p5chop|chomp|p5chomp|lc|lcfirst|uc|ucfirst|capitalize|normalize|pack|unpack|quotemeta|comb|samecase|sameaccent|chars|nfd|nfc|nfkd|nfkc|printf|sprintf|caller|evalfile|run|runinstead|nothing|want|bless|chr|ord|gmtime|time|eof|localtime|gethost|getpw|chroot|getlogin|getpeername|kill|fork|wait|perl|graphs|codes|bytes|clone|print|open|read|write|readline|say|seek|close|opendir|readdir|slurp|spurt|shell|run|pos|fmt|vec|link|unlink|symlink|uniq|pair|asin|atan|sec|cosec|cotan|asec|acosec|acotan|sinh|cosh|tanh|asinh|done|acos|acosh|atanh|sech|cosech|cotanh|sech|acosech|acotanh|asech|ok|nok|plan_ok|dies_ok|lives_ok|skip|todo|pass|flunk|force_todo|use_ok|isa_ok|diag|is_deeply|isnt|like|skip_rest|unlike|cmp_ok|eval_dies_ok|nok_error|eval_lives_ok|approx|is_approx|throws_ok|version_lt|plan|eval|succ|pred|times|nonce|once|signature|new|connect|operator|undef|undefine|sleep|from|to|infix|postfix|prefix|circumfix|postcircumfix|minmax|lazy|count|unwrap|getc|pi|e|context|void|quasi|body|each|contains|rewinddir|subst|can|isa|flush|arity|assuming|rewind|callwith|callsame|nextwith|nextsame|attr|eval_elsewhere|none|srand|trim|trim_start|trim_end|lastcall|what|where|how|which|var|who|whence|accepts|rejects|not|true|iterator|by|re|im|invert|flip|gist|flat|tree|is-prime|throws_like|trans|object|any|junction|whatever|capture|matchsignature|proxy|matcher|package|module|classgrammar|scalar|array|hash|keyhash|keyset|keybagpair|list|seq|range|set|bag|mapping|void|undeffailure|exception|code|block|routine|sub|macromethod|submethod|regex|str|str|blob|char|bytecodepoint|grapheme|strpos|strlen|version|numcomplex|num|complex|bit|bit|bool|true|falseincreasing|decreasing|ordered|callable|anycharpositional|associative|ordering|keyextractorcomparator|orderingpair|io|kitchensink|roleint|int|int1|int2|int4|int8|int16|int32|int64rat|rat|rat1|rat2|rat4|rat8|rat16|rat32|rat64buf|buf|buf1|buf2|buf4|buf8|buf16|buf32|buf64uint|uint|uint1|uint2|uint4|uint8|uint16|uint32uint64|abstraction|utf8|utf16|utf32|argv|data|env|sig|stderr|stdin|stdout|atan2|bind|binmode|bless|caller|chdir|chmod|chomp|chop|chown|chr|chroot|close|closedir|cmp|connect|cos|crypt|dbmclose|dbmopen|defined|delete|dump|each|endgrent|endhostent|endnetent|endprotoent|endpwent|endservent|eof|eq|eval|exec|exists|exp|fcntl|fileno|flock|fork|formline|ge|getc|getgrent|getgrgid|getgrnam|gethostbyaddr|gethostbyname|gethostent|getlogin|getnetbyaddr|getnetbyname|getnetent|getpeername|getpgrp|getppid|getpriority|getprotobyname|getprotobynumber|getprotoent|getpwent|getpwnam|getpwuid|getservbyname|getservbyport|getservent|getsockname|getsockopt|glob|gmtime|grep|gt|hex|import|index|int|ioctl|join|keys|kill|lc|lcfirst|le|length|link|listen|local|localtime|log|lstat|lt|m|map|mkdir|msgctl|msgget|msgrcv|msgsnd|ne|no|oct|open|opendir|ord|pack|pipe|pop|pos|print|printf|push|quotemeta|rand|read|readdir|readlink|recv|ref|rename|reset|reverse|rewinddir|rindex|rmdir|s|say|scalar|seek|seekdir|semctl|semget|semop|send|setgrent|sethostent|setnetent|setpgrp|setpriority|setprotoent|setpwent|setservent|setsockopt|shift|shmctl|shmget|shmread|shmwrite|shutdown|sin|sleep|socket|socketpair|sort|splice|split|sprintf|sqrt|srand|stat|study|substr|symlink|syscall|sysopen|sysread|system|syswrite|tell|telldir|tie|tied|time|times|tr|truncate|uc|ucfirst|umask|undef|unlink|unpack|unshift|untie|utime|values|vec|waitpid|wantarray|warn|write|y|
+        # aggregate
+        avg|checksum_agg|count|count_big|grouping|grouping_id|max|min|sum|stdev|stdevp|var|varp|
+        # analytic
+        cume_dist|first_value|lag|last_value|lead|percent_rank|percentile_cont|percentile_disc|
+        # conversion
+        cast|convert|parse|try_cast|try_convert|try_parse|
+        # cursor
+        cursor_status|
+        # datetime
+        sysdatetime|sysdatetimeoffset|sysutcdatetime|current_timestamp|getdate|getutcdate|datename|datepart|day|month|year|datefromparts|datetime2fromparts|datetimefromparts|datetimeoffsetfromparts|smalldatetimefromparts|timefromparts|datediff|dateadd|eomonth|switchoffset|todatetimeoffset|isdate|
+        # expression
+        coalesce|nullif|
+        # global variables
+        (?<!@)@@(cursor_rows|connections|cpu_busy|datefirst|dbts|error|fetch_status|identity|idle|io_busy|langid|language|lock_timeout|max_connections|max_precision|nestlevel|options|packet_errors|pack_received|pack_sent|procid|remserver|rowcount|servername|servicename|spid|textsize|timeticks|total_errors|total_read|total_write|trancount|version)|
+        # logical
+        choose|iif|
+        # mathematical
+        abs|acos|asin|atan|atn2|ceiling|cos|cot|degrees|exp|floor|log|log10|pi|power|radians|rand|round|sign|sin|sqrt|square|tan|
+        # metadata
+        app_name|applock_mode|applock_test|assemblyproperty|col_length|col_name|columnproperty|database_principal_id|databasepropertyex|db_id|db_name|file_id|file_idex|file_name|filegroup_id|filegroup_name|filegroupproperty|fileproperty|fulltextcatalogproperty|fulltextserviceproperty|index_col|indexkey_property|indexproperty|object_definition|object_id|object_name|object_schema_name|objectproperty|objectpropertyex|original_db_name|parsename|schema_id|schema_name|scope_identity|serverproperty|stats_date|type_id|type_name|typeproperty|
+        # ranking
+        rank|dense_rank|ntile|row_number|
+        # rowset
+        opendatasource|openrowset|openquery|openxml|
+        # security
+        certencoded|certprivatekey|current_user|database_principal_id|has_perms_by_name|is_member|is_rolemember|is_srvrolemember|original_login|permissions|pwdcompare|pwdencrypt|schema_id|schema_name|session_user|suser_id|suser_sid|suser_sname|system_user|suser_name|
+        # string
+        ascii|char|charindex|concat|difference|format|left|len|lower|ltrim|nchar|nodes|patindex|quotename|replace|replicate|reverse|right|rtrim|soundex|space|str|string_agg|string_escape|string_split|stuff|substring|translate|trim|unicode|upper|
+        # system
+        binary_checksum|checksum|compress|connectionproperty|context_info|current_request_id|current_transaction_id|decompress|error_line|error_message|error_number|error_procedure|error_severity|error_state|formatmessage|get_filestream_transaction_context|getansinull|host_id|host_name|isnull|isnumeric|min_active_rowversion|newid|newsequentialid|rowcount_big|session_context|session_id|xact_state|
+        # textimage
+        patindex|textptr|textvalid
+        # lua core
+        assert|collectgarbage|dofile|error|getfenv|getmetatable|ipairs|load|loadfile|loadstring|module|next|pairs|pcall|print|rawequal|rawget|rawlen|rawset|required|select|setfenv|setmetatable|tonumber|tostring|type|unpack|xpcall|
+        # lua async
+        async|
+        # lua standard libraries
+        coroutine_(create|isyieldable|close|resume|running|status|wrap|yield)|string_(byte|char|dump|find|format|gmatch|gsub|len|lower|match|pack|packsize|rep|reverse|sub|unpack|upper)|table_(concat|insert|maxn|move|pack|remove|sort|unpack)|math_(abs|acos|asin|atan2?|ceil|cosh?|deg|exp|floor|fmod|frexp|ldexp|log|log10|max|min|modf|pow|rad|random|randomseed|sinh?|sqrt|tanh?|tointeger|type)|io_(close|flush|input|lines|open|output|popen|read|tmpfile|type|write)|os_(clock|date|difftime|execute|exit|getenv|remove|rename|setlocale|time|tmpname)|package_(loadlib|seeall|searchpath)|debug_(debug|[gs]etfenv|[gs]ethook|getinfo|[gs]etlocal|[gs]etmetatable|getregistry|[gs]etupvalue|[gs]etuservalue|set[Cc]stacklimit|traceback|upvalueid|upvaluejoin)|bit32_(arshift|band|bnot|bor|btest|bxor|extract|replace|lrotate|lshift|rrotate|rshift)|utf8_(char|codes|codepoint|len|offset)|
+        # ruby
+        abort|at_exit|autoload|binding|callcc|caller|caller_locations|chomp|chop|eval|exec|exit|fork|format|gets|global_variables|gsub|lambda|load|local_variables|open|p|print|printf|proc|putc|puts|rand|readline|readlines|select|set_trace_func|sleep|spawn|sprintf|srand|sub|syscall|system|test|trace_var|trap|untrace_var|warn|autoload|exit|
+        # ruby special methods
+        initialize|new|loop|include|extend|prepend|raise|fail|attr_reader|attr_writer|attr_accessor|attr|catch|throw|private|private_class_method|module_function|public|public_class_method|protected|refine|using|require|require_relative|load|gem|
+        # ruby pseudo methods
+        alias|alias_method|break|next|redo|retry|return|super|undef|yield|defined?|block_given|iterator?|respond_to
       )\b\s*
     name: support.function.core.hitori
