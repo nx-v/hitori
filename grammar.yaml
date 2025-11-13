@@ -53,7 +53,7 @@ todo: |
     - [ ] Variables
   - [ ] Rework function call syntax to be more consistent and terser.
     Inspired by Haskell.
-  - [ ] Rework import/export/module syntax to be terse, drawing inspiration 
+  - [x] Rework import/export/module syntax to be terse, drawing inspiration 
     from JavaScript ES6 modules, with changes such as:
       - glob file path matching: import path/**/*.hitori
       - named imports/exports: import module{a,b,c}
@@ -5302,7 +5302,7 @@ repository:
           == | != | === | !==
         ) |
         ( # 15: similarity
-          ~[=!] | [=!]~ | =<
+          ~[=!] | [=!]~ | =< | ><
         ) |
         ( # 16: functional
           <[/*|+$:]> | [/*|+$:]> | <[/*|+$:]
@@ -5462,7 +5462,7 @@ repository:
           <<[<>]? | [<>]?>>
         ) |
         ( # 10: pipeline
-          <\|+ | \|+>
+          <\|+ | \|+> | !+> | <!+
         ) |
         ( # 11: composition
           <\+ | \+>
@@ -5477,7 +5477,7 @@ repository:
           == | != | === | !==
         ) |
         ( # 15: similarity
-          ~[=!] | [=!]~ | =<
+          ~[=!] | [=!]~ | =< | ><
         ) |
         ( # 16: functional
           <[/*|+$:]> | [/*|+$:]> | <[/*|+$:]
@@ -5817,22 +5817,27 @@ repository:
           )\b\s*
         name: storage.modifier.function.hitori
       - include: '#expression-keywords'
-      - comment: Functional modifiers
+      - comment: Custom modifiers
         match: \s*\b([\p{Pc}\p{L}]\w*)\b\s*
-        name: storage.type.custom.hitori
+        name: storage.type.property.hitori
 
   declaration-keywords:
     patterns:
       - match: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(decl)\b\s*
         name: keyword.other.declare.hitori
-      - match: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(const|let|mut|dyn|va[rl]|use|given|state)\b\s*
+      - match: |
+          (?x)
+          \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(
+            const|let|mut|dyn
+            |va[rl]|use|given|state
+          )\b\s*
         name: storage.type.hitori
       - match: |
           (?x)
           \s*
             (?<!(?:(?<!\.)\.|[?!:]:)=?)\b
             (
-              func|func|proc|prop|type|class|actor
+              func|proc|prop|type|class|actor
               |impl|enum|module|struct|record
               |union|iter|macro|query|elem|temp
               |object|realm|trait|style|script|quote
@@ -5933,20 +5938,21 @@ repository:
               - include: '#module-content'
               - include: '#intern-extern-expression'
               - include: $self
+          - include: '#strings'
+          - include: '#regexps'
+          - include: '#symbols'
           - include: '#comments'
           - match: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(as)\b\s*
             name: keyword.control.module.hitori
-          - include: '#type-keywords'
           - include: '#type-operators'
           - include: '#accessor-operators'
           - match: \s*(?<!:):(?!:)\s*
             name: keyword.operator.alias.hitori
-          - include: '#strings'
-          - include: '#regexps'
-          - include: '#symbols'
+          - include: '#regexp-patterns'
+          - include: '#type-keywords'
           - match: \s*(?<!\*)\*(?!\*)\s*
             name: constant.language.import-export-all.js
-          - include: '#modifiers'
+          - include: '#type-modifiers'
           - include: '#comma'
           - include: '#line-continuation'
           - match: *entity-name
@@ -8069,11 +8075,11 @@ repository:
           (?x)\s*(?<![?!]?\.|[?!:]:)\b(
             Array|Tuple|Set|Map|Object|Seq|Record|Dict
             |Proc|Range|Stack|Heap|Queue|Tree|Trie|Graph
-            |Future|Stream|RegExp|Func|Buffer|FrozenSe[tq]
+            |Future|Stream|RegExp|Func|Buffer|FSe[tq]
             # lower flat case
             |array|tuple|set|map|object|seq|record|dict
             |proc|range|stack|heap|queue|tree|trie|graph
-            |future|stream|regexp|func|buffer|frozense[tq]
+            |future|stream|regexp|func|buffer|fse[tq]
           )\b
         name: support.type.builtin.hitori
       - comment: Constant/algebraic classes
@@ -8098,6 +8104,9 @@ repository:
       - comment: Trait classes | Serializable, Loggable etc
         match: \s*\b((\p{Lu}[\w&&\P{Lu}]*)+)able\b
         name: support.class.trait.hitori
+      - comment: Algebraic data types
+        match: \s*\b(Some|None|Just|Ok|Err|Left|Right)\b\s*
+        name: support.class.algebraic.hitori
 
   support-functions:
     comment: |
@@ -8114,32 +8123,7 @@ repository:
         match: \s*\b\p{Pc}+([\p{Pc}\p{L}]\w*)+\p{Pc}+\b\s*
         name: support.function.magic.hitori
       - match: \s*\b[gs]et(\p{Lu}[\w&&\P{Lu}]*)+\b\s*
-        comment: accessor functions
         name: support.function.accessor.hitori
-      - match: \s*\b(add|append|insert|remove|delete|clear|push|pop|enqueue|dequeue|shift|unshift)(\p{Lu}[\w&&\P{Lu}]*)*\b\s*
-        comment: mutator functions
-        name: support.function.mutator.hitori
-      - match: \s*\b(create|build|make|new|init|initialize|construct|setup)(\p{Lu}[\w&&\P{Lu}]*)*\b\s*
-        comment: constructor functions
-        name: support.function.constructor.hitori
-      - match: \s*\b(update|set|reset|clear|refresh|reload|rebuild|reinitialize|reconstruct)(\p{Lu}[\w&&\P{Lu}]*)*\b\s*
-        comment: updater functions
-        name: support.function.updater.hitori
-      - match: \s*\b(get|fetch|retrieve|load|find|search|lookup|query|read)(\p{Lu}[\w&&\P{Lu}]*)*\b\s*
-        comment: retriever functions
-        name: support.function.retriever.hitori
-      - match: \s*\b(calc(ulate)?|compute|determine|measure|evaluate|process|transform|convert)(\p{Lu}[\w&&\P{Lu}]*)*\b\s*
-        comment: processor functions
-        name: support.function.processor.hitori
-      - match: \s*\b(handle|manage|control|administer|orchestrate|coordinate)(\p{Lu}[\w&&\P{Lu}]*)*\b\s*
-        comment: manager functions
-        name: support.function.manager.hitori
-      - match: \s*\b(send|receive|transmit|broadcast|communicate|connect|disconnect)(\p{Lu}[\w&&\P{Lu}]*)*\b\s*
-        comment: communicator functions
-        name: support.function.communicator.hitori
-      - match: \s*\b(log|trace|debug|info|warn(ing)?|error|doubleal|report|audit)(\p{Lu}[\w&&\P{Lu}]*)*\b\s*
-        comment: logger functions
-        name: support.function.logger.hitori
       - include: '#support-functions-core'
 
   support-functions-core:
