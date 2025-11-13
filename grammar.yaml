@@ -72,6 +72,8 @@ changelog: |
 
   New changes:
 
+  - Custom modifiers can now be placed before any declaration.
+    For example: async place func(x) { ... }
   - Added keywords temp, prop, actor, realm, style, script, intern, extern,
     assert, check, given, using.
   - Fixed empty generics: T<> is now highlighted properly.
@@ -213,7 +215,8 @@ define:
       (?: # keywords
         [io]n|of|[ai]s|new|del
         |unset|ref|and|x?or|not
-        |const|let|mut|dyn|va[rl]|use|given|state
+        |const|let|mut|dyn
+        |va[rl]|use|given|state
         |func|proc|prop|type|class|actor
         |impl|enum|module|struct|record
         |union|iter|macro|query|elem|temp
@@ -242,7 +245,8 @@ define:
       (?: # keywords
         [io]n|of|[ai]s|new|del
         |unset|ref|and|x?or|not
-        |const|let|mut|dyn|va[rl]|use|given|state
+        |const|let|mut|dyn
+        |va[rl]|use|given|state
         |func|proc|prop|type|class|actor
         |impl|enum|module|struct|record
         |union|iter|macro|query|elem|temp
@@ -318,7 +322,7 @@ repository:
         name: invalid.illegal.variable.hitori
       - match: '[({\[)}\]]+?'
         name: invalid.illegal.missing-bracket.hitori
-      - match: '[\p{S}\p{P}&&[^,;''"`({\[)}\]\p{Pc}]]+'
+      - match: '[\p{P}\p{S}&&[^,;''"`({\[)}\]\p{Pc}]]+'
         name: invalid.illegal.operator.hitori
       - match: \S+?
         name: invalid.illegal.uncaught.hitori
@@ -342,7 +346,7 @@ repository:
       - include: '#embedded-format'
       - include: '#embedded-placeholder'
       - include: '#angle-brackets'
-      - include: '#modifiers'
+      - include: '#type-modifiers'
       - include: '#type-keywords'
       - include: '#type-names'
       - include: '#literals'
@@ -365,7 +369,8 @@ repository:
         (?: # keywords
           [io]n|of|[ai]s|new|del
           |unset|ref|and|x?or|not
-          |const|let|mut|dyn|va[rl]|use|given|state
+          |const|let|mut|dyn
+          |va[rl]|use|given|state
           |func|proc|prop|type|class|actor
           |impl|enum|module|struct|record
           |union|iter|macro|query|elem|temp
@@ -457,7 +462,7 @@ repository:
         patterns:
           - match: ','
             name: punctuation.separator.mapping.hitori
-          - match: (?<=(?:['"`)}\]\w]|\\.)[\p{S}\p{P}&&[^,;'"`({\[)}\]\p{Pc}]]*):(?=['"`({\[\w\s]|$)
+          - match: (?<=(?:['"`)}\]\w]|\\.)[\p{P}\p{S}&&[^,;'"`({\[)}\]\p{Pc}]]*):(?=['"`({\[\w\s]|$)
             name: punctuation.separator.key-value.hitori
 
     patterns:
@@ -467,7 +472,9 @@ repository:
             (?:^|[,;'"({\[)}\]\s]) # beside a delimiter or space
             \b
               (?: # destructuring keywords
-                const|let|mut|dyn|va[rl]|use|given|state|case
+                const|let|mut|dyn
+                |va[rl]|use|given|state
+                |case
               )
             \b
             (?:$|[,;'"({\[)}\]\s]) # beside a delimiter or space
@@ -538,7 +545,7 @@ repository:
                 ^
               | [,;({\[]
               | (?:^|[,;({\[)}\]\w'"`]|\\.):\s*
-              | [\p{S}\p{P}&&[^,;'"`({\[)}\]\p{Pc}]]+
+              | [\p{P}\p{S}&&[^,;'"`({\[)}\]\p{Pc}]]+
             )
             \s*
           )
@@ -559,7 +566,7 @@ repository:
                 ^
               | [,;({\[]
               | (?:^|[,;({\[)}\]\w'"`]|\\.):\s*
-              | [\p{S}\p{P}&&[^,;'"`({\[)}\]\p{Pc}]]+
+              | [\p{P}\p{S}&&[^,;'"`({\[)}\]\p{Pc}]]+
             )
             \s*
           )
@@ -605,7 +612,9 @@ repository:
             (?:^|[,;'"({\[)}\]\s]) # beside a delimiter or space
             \b
               (?: # destructuring keywords
-                const|let|mut|dyn|va[rl]|use|given|state|case
+                const|let|mut|dyn
+                |va[rl]|use|given|state
+                |case
               )
             \b
             (?:$|[,;'"({\[)}\]\s]) # beside a delimiter or space
@@ -664,7 +673,9 @@ repository:
             (?:^|[,;'"({\[)}\]\s]) # beside a delimiter or space
             \b
               (?: # destructuring keywords
-                const|let|mut|dyn|va[rl]|use|given|state|case
+                const|let|mut|dyn
+                |va[rl]|use|given|state
+                |case
               )
             \b
             (?:$|[,;'"({\[)}\]\s]) # beside a delimiter or space
@@ -2333,7 +2344,8 @@ repository:
             (?: # keywords
               [io]n|of|[ai]s|new|del
               |unset|ref|and|x?or|not
-              |const|let|mut|dyn|va[rl]|use|given|state
+              |const|let|mut|dyn
+              |va[rl]|use|given|state
               |func|proc|prop|type|class|actor
               |impl|enum|module|struct|record
               |union|iter|macro|query|elem|temp
@@ -2388,7 +2400,8 @@ repository:
             (?: # keywords
               [io]n|of|[ai]s|new|del
               |unset|ref|and|x?or|not
-              |const|let|mut|dyn|va[rl]|use|given|state
+              |const|let|mut|dyn
+              |va[rl]|use|given|state
               |func|proc|prop|type|class|actor
               |impl|enum|module|struct|record
               |union|iter|macro|query|elem|temp
@@ -2467,7 +2480,8 @@ repository:
               (?: # keywords
                 [io]n|of|[ai]s|new|del
                 |unset|ref|and|x?or|not
-                |const|let|mut|dyn|va[rl]|use|given|state
+                |const|let|mut|dyn
+                |va[rl]|use|given|state
                 |func|proc|prop|type|class|actor
                 |impl|enum|module|struct|record
                 |union|iter|macro|query|elem|temp
@@ -2632,7 +2646,7 @@ repository:
           | # opening bracket
             [({\[]
           | # postfix or infix operator
-            [\p{S}\p{P}&&[^,;'"`({\[)}\]\p{Pc}]]+ \s
+            [\p{P}\p{S}&&[^,;'"`({\[)}\]\p{Pc}]]+ \s
         ) \s*
         | # a keyword
         (?:
@@ -2641,7 +2655,8 @@ repository:
             (?: # keywords
               [io]n|of|[ai]s|new|del
               |unset|ref|and|x?or|not
-              |const|let|mut|dyn|va[rl]|use|given|state
+              |const|let|mut|dyn
+              |va[rl]|use|given|state
               |func|proc|prop|type|class|actor
               |impl|enum|module|struct|record
               |union|iter|macro|query|elem|temp
@@ -3262,7 +3277,7 @@ repository:
           | # opening bracket
             [({\[]
           | # postfix or infix operator
-            [\p{S}\p{P}&&[^,;'"`({\[)}\]\p{Pc}]]+ \s
+            [\p{P}\p{S}&&[^,;'"`({\[)}\]\p{Pc}]]+ \s
         ) \s*
         | # a keyword
         (?:
@@ -3271,7 +3286,8 @@ repository:
             (?: # keywords
               [io]n|of|[ai]s|new|del
               |unset|ref|and|x?or|not
-              |const|let|mut|dyn|va[rl]|use|given|state
+              |const|let|mut|dyn
+              |va[rl]|use|given|state
               |func|proc|prop|type|class|actor
               |impl|enum|module|struct|record
               |union|iter|macro|query|elem|temp
@@ -4335,7 +4351,7 @@ repository:
 
   block-comments:
     patterns:
-      - begin: \s*(/\*\*)(?![\p{S}\p{P}&&[^,;'"`({\[)}\]\p{Pc}]]+)
+      - begin: \s*(/\*\*)(?![\p{P}\p{S}&&[^,;'"`({\[)}\]\p{Pc}]]+)
         end: \s*(\*/)
         name: comment.block.documentation.hitori
         captures:
@@ -4344,7 +4360,7 @@ repository:
           - include: '#jsdoc'
           - include: text.html.markdown#inline
           - include: '#nested-jsdoc'
-      - begin: \s*(/\*)(?![\p{S}\p{P}&&[^,;'"`({\[)}\]\p{Pc}]]+)
+      - begin: \s*(/\*)(?![\p{P}\p{S}&&[^,;'"`({\[)}\]\p{Pc}]]+)
         end: \s*(\*/)
         name: comment.block.hitori
         captures:
@@ -4355,7 +4371,7 @@ repository:
 
   line-comments:
     patterns:
-      - begin: \s*(///)(?![\p{S}\p{P}&&[^,;'"`({\[)}\]\p{Pc}]]+)
+      - begin: \s*(///)(?![\p{P}\p{S}&&[^,;'"`({\[)}\]\p{Pc}]]+)
         end: \s*$
         name: comment.line.documentation.hitori
         captures:
@@ -4363,7 +4379,7 @@ repository:
         patterns:
           - include: '#jsdoc'
           - include: text.html.markdown#inline
-      - begin: \s*(//)(?![\p{S}\p{P}&&[^,;'"`({\[)}\]\p{Pc}]]+)
+      - begin: \s*(//)(?![\p{P}\p{S}&&[^,;'"`({\[)}\]\p{Pc}]]+)
         end: \s*$
         name: comment.line.number-sign.hitori
         captures:
@@ -4372,7 +4388,7 @@ repository:
           - include: text.html.markdown#inline
 
   nested-jsdoc:
-    begin: (/\*\*?)(?![\p{S}\p{P}&&[^,;'"`({\[)}\]\p{Pc}]]+)
+    begin: (/\*\*?)(?![\p{P}\p{S}&&[^,;'"`({\[)}\]\p{Pc}]]+)
     end: \s*(\*/)
     name: comment.block.documentation.nested.hitori
     captures:
@@ -4383,7 +4399,7 @@ repository:
       - include: '#nested-jsdoc'
 
   nested-block:
-    begin: (/\*)(?![\p{S}\p{P}&&[^,;'"`({\[)}\]\p{Pc}]]+)
+    begin: (/\*)(?![\p{P}\p{S}&&[^,;'"`({\[)}\]\p{Pc}]]+)
     end: \s*(\*/)
     name: comment.block.nested.hitori
     captures:
@@ -4594,7 +4610,7 @@ repository:
           | # C-style function call
             (?:[?!:]:=?|[?!]?\.=?)? \#? [({]
           | # generics
-            (?:[?!:]:=?|[?!]?\.=?)? < [\p{S}\p{P}&&[^,;'"`({\[)}\]\p{Pc}]]* ['"`({\[\w]
+            (?:[?!:]:=?|[?!]?\.=?)? < [\p{P}\p{S}&&[^,;'"`({\[)}\]\p{Pc}]]* ['"`({\[\w]
           | # macro calls
             ! \#? [({]
           | # strings and symbols
@@ -4617,7 +4633,8 @@ repository:
               (?: # keywords
                 [io]n|of|[ai]s|new|del
                 |unset|ref|and|x?or|not
-                |const|let|mut|dyn|va[rl]|use|given|state
+                |const|let|mut|dyn
+                |va[rl]|use|given|state
                 |func|proc|prop|type|class|actor
                 |impl|enum|module|struct|record
                 |union|iter|macro|query|elem|temp
@@ -4649,7 +4666,7 @@ repository:
               | # C-style function call
                 (?:[?!:]:=?|[?!]?\.=?)? \#? [({]
               | # generics
-                (?:[?!:]:=?|[?!]?\.=?)? < [\p{S}\p{P}&&[^,;'"`({\[)}\]\p{Pc}]]* ['"`({\[\w]
+                (?:[?!:]:=?|[?!]?\.=?)? < [\p{P}\p{S}&&[^,;'"`({\[)}\]\p{Pc}]]* ['"`({\[\w]
               | # macro calls
                 ! \#? [({]
               | # strings
@@ -4674,7 +4691,8 @@ repository:
               (?: # keywords
                 [io]n|of|[ai]s|new|del
                 |unset|ref|and|x?or|not
-                |const|let|mut|dyn|va[rl]|use|given|state
+                |const|let|mut|dyn
+                |va[rl]|use|given|state
                 |func|proc|prop|type|class|actor
                 |impl|enum|module|struct|record
                 |union|iter|macro|query|elem|temp
@@ -4731,7 +4749,7 @@ repository:
         (?<= ^ # beginning of line
           | ['"`({\[)}\]\w\s] # literal
           (?: # operators
-            [\p{S}\p{P}&&[^,;'"`({\[)}\]\p{Pc}]]+
+            [\p{P}\p{S}&&[^,;'"`({\[)}\]\p{Pc}]]+
           )?
         ) \b
           (?: # Regular variables
@@ -4811,7 +4829,7 @@ repository:
             (?<=
               (?: ^ | [,;'"`({\[)}\]\w\s] | \\. ) # literal
               (?: # operators
-                [\p{S}\p{P}&&[^,;'"`({\[)}\]\p{Pc}]]+
+                [\p{P}\p{S}&&[^,;'"`({\[)}\]\p{Pc}]]+
               )?
             ) \b
               (?: # Regular variables
@@ -4878,7 +4896,8 @@ repository:
               | [(|]\. \s # uncurried function
               | (?:^|[,;'"({\[)}\]|\s])
                 \b (?:
-                  const|let|mut|dyn|va[rl]|use|given|state
+                  const|let|mut|dyn
+                  |va[rl]|use|given|state
                   |func|proc|prop|type|class|actor
                   |impl|enum|module|struct|record
                   |union|iter|macro|query|elem|temp
@@ -4918,7 +4937,8 @@ repository:
               | [(|]\. \s # uncurried function
               | (?:^|[,;'"({\[)}\]|\s])
                 \b (?:
-                  const|let|mut|dyn|va[rl]|use|given|state
+                  const|let|mut|dyn
+                  |va[rl]|use|given|state
                   |func|proc|prop|type|class|actor
                   |impl|enum|module|struct|record
                   |union|iter|macro|query|elem|temp
@@ -4958,7 +4978,8 @@ repository:
               | [(|]\. \s # uncurried function
               | (?:^|[,;'"({\[)}\]|\s])
                 \b (?:
-                  const|let|mut|dyn|va[rl]|use|given|state
+                  const|let|mut|dyn
+                  |va[rl]|use|given|state
                   |func|proc|prop|type|class|actor
                   |impl|enum|module|struct|record
                   |union|iter|macro|query|elem|temp
@@ -4998,7 +5019,8 @@ repository:
               | [(|]\. \s # uncurried function
               | (?:^|[,;'"({\[)}\]|\s])
                 \b (?:
-                  const|let|mut|dyn|va[rl]|use|given|state
+                  const|let|mut|dyn
+                  |va[rl]|use|given|state
                   |func|proc|prop|type|class|actor
                   |impl|enum|module|struct|record
                   |union|iter|macro|query|elem|temp
@@ -5038,7 +5060,8 @@ repository:
               | [(|]\. \s # uncurried function
               | (?:^|[,;'"({\[)}\]|\s])
                 \b (?:
-                  const|let|mut|dyn|va[rl]|use|given|state
+                  const|let|mut|dyn
+                  |va[rl]|use|given|state
                   |func|proc|prop|type|class|actor
                   |impl|enum|module|struct|record
                   |union|iter|macro|query|elem|temp
@@ -5078,7 +5101,8 @@ repository:
               | [(|]\. \s # uncurried function
               | (?:^|[,;'"({\[)}\]|\s])
                 \b (?:
-                  const|let|mut|dyn|va[rl]|use|given|state
+                  const|let|mut|dyn
+                  |va[rl]|use|given|state
                   |func|proc|prop|type|class|actor
                   |impl|enum|module|struct|record
                   |union|iter|macro|query|elem|temp
@@ -5242,9 +5266,9 @@ repository:
         ) |
         ( # 4: compound assignment operators
           # all operators except ~ < = > . : !
-          [\p{S}\p{P}&&[^~<=>.,:;!'"`({\[)}\]\p{Pc}]]
+          [\p{P}\p{S}&&[^~<=>.,:;!'"`({\[)}\]\p{Pc}]]
           # operator character
-          [\p{S}\p{P}&&[^,;'"`({\[)}\]\p{Pc}]]*
+          [\p{P}\p{S}&&[^,;'"`({\[)}\]\p{Pc}]]*
           = # ending equal sign
         ) |
         ( # 5: arithmetic operator
@@ -5318,46 +5342,46 @@ repository:
         ) |
         ( # 27: custom logical
           [&|^~] # leading chars
-          [\p{S}\p{P}&&[^,;'"`({\[)}\]\p{Pc}]]+
+          [\p{P}\p{S}&&[^,;'"`({\[)}\]\p{Pc}]]+
         ) |
         ( # 28: custom arithmetic
           [-+*/%] # leading chars
-          [\p{S}\p{P}&&[^,;'"`({\[)}\]\p{Pc}]]+
+          [\p{P}\p{S}&&[^,;'"`({\[)}\]\p{Pc}]]+
         ) |
         ( # 29: custom prototype
           [@:] # leading chars
-          [\p{S}\p{P}&&[^,;'"`({\[)}\]\p{Pc}]]+
+          [\p{P}\p{S}&&[^,;'"`({\[)}\]\p{Pc}]]+
         ) |
         ( # 30: custom accessor
           [.] # leading chars
-          [\p{S}\p{P}&&[^,;'"`({\[)}\]\p{Pc}]]+
+          [\p{P}\p{S}&&[^,;'"`({\[)}\]\p{Pc}]]+
         ) |
         ( # 31: custom comparison
           [=!] # leading chars
-          [\p{S}\p{P}&&[^,;'"`({\[)}\]\p{Pc}]]+
+          [\p{P}\p{S}&&[^,;'"`({\[)}\]\p{Pc}]]+
         ) |
         ( # 32: custom relational
           [<>] # leading chars
-          [\p{S}\p{P}&&[^,;'"`({\[)}\]\p{Pc}]]+
+          [\p{P}\p{S}&&[^,;'"`({\[)}\]\p{Pc}]]+
         ) |
         ( # 33: custom private
           [?\#] # leading chars
-          [\p{S}\p{P}&&[^,;'"`({\[)}\]\p{Pc}]]+
+          [\p{P}\p{S}&&[^,;'"`({\[)}\]\p{Pc}]]+
         ) |
         ( # 34: custom math
           \p{Sm} # leading chars
-          [\p{S}\p{P}&&[^,;'"`({\[)}\]\p{Pc}]]+
+          [\p{P}\p{S}&&[^,;'"`({\[)}\]\p{Pc}]]+
         ) |
         ( # 35: custom currency
           \p{Sc} # leading chars
-          [\p{S}\p{P}&&[^,;'"`({\[)}\]\p{Pc}]]+
+          [\p{P}\p{S}&&[^,;'"`({\[)}\]\p{Pc}]]+
         ) |
         ( # 36: custom ascii
-          [\p{S}\p{P}&&[\x80-\xFF]] # leading chars
-          [\p{S}\p{P}&&[^,;'"`({\[)}\]\p{Pc}]]+
+          [\p{P}\p{S}&&[\x80-\xFF]] # leading chars
+          [\p{P}\p{S}&&[^,;'"`({\[)}\]\p{Pc}]]+
         ) |
         ( # 37: catch all
-          [\p{S}\p{P}&&[^,;'"`({\[)}\]\p{Pc}]]+
+          [\p{P}\p{S}&&[^,;'"`({\[)}\]\p{Pc}]]+
         )
       )
       (?=$|[)}\]\s]) # closing
@@ -5417,9 +5441,9 @@ repository:
         ) |
         ( # 4: compound assignment operators
           # all operators except ~ < = > . : !
-          [\p{S}\p{P}&&[^~<=>.,:;!'"`({\[)}\]\p{Pc}]]
+          [\p{P}\p{S}&&[^~<=>.,:;!'"`({\[)}\]\p{Pc}]]
           # operator character
-          [\p{S}\p{P}&&[^,;'"`({\[)}\]\p{Pc}]]*
+          [\p{P}\p{S}&&[^,;'"`({\[)}\]\p{Pc}]]*
           = # ending equal sign
         ) |
         ( # 5: arithmetic operator
@@ -5493,46 +5517,46 @@ repository:
         ) |
         ( # 27: custom logical
           [&|^~] # leading chars
-          [\p{S}\p{P}&&[^,;'"`({\[)}\]\p{Pc}]]+
+          [\p{P}\p{S}&&[^,;'"`({\[)}\]\p{Pc}]]+
         ) |
         ( # 28: custom arithmetic
           [-+*/%] # leading chars
-          [\p{S}\p{P}&&[^,;'"`({\[)}\]\p{Pc}]]+
+          [\p{P}\p{S}&&[^,;'"`({\[)}\]\p{Pc}]]+
         ) |
         ( # 29: custom prototype
           [@:] # leading chars
-          [\p{S}\p{P}&&[^,;'"`({\[)}\]\p{Pc}]]+
+          [\p{P}\p{S}&&[^,;'"`({\[)}\]\p{Pc}]]+
         ) |
         ( # 30: custom accessor
           [.] # leading chars
-          [\p{S}\p{P}&&[^,;'"`({\[)}\]\p{Pc}]]+
+          [\p{P}\p{S}&&[^,;'"`({\[)}\]\p{Pc}]]+
         ) |
         ( # 31: custom comparison
           [=!] # leading chars
-          [\p{S}\p{P}&&[^,;'"`({\[)}\]\p{Pc}]]+
+          [\p{P}\p{S}&&[^,;'"`({\[)}\]\p{Pc}]]+
         ) |
         ( # 32: custom relational
           [<>] # leading chars
-          [\p{S}\p{P}&&[^,;'"`({\[)}\]\p{Pc}]]+
+          [\p{P}\p{S}&&[^,;'"`({\[)}\]\p{Pc}]]+
         ) |
         ( # 33: custom private
           [?\#] # leading chars
-          [\p{S}\p{P}&&[^,;'"`({\[)}\]\p{Pc}]]+
+          [\p{P}\p{S}&&[^,;'"`({\[)}\]\p{Pc}]]+
         ) |
         ( # 34: custom math
           \p{Sm} # leading chars
-          [\p{S}\p{P}&&[^,;'"`({\[)}\]\p{Pc}]]+
+          [\p{P}\p{S}&&[^,;'"`({\[)}\]\p{Pc}]]+
         ) |
         ( # 35: custom currency
           \p{Sc} # leading chars
-          [\p{S}\p{P}&&[^,;'"`({\[)}\]\p{Pc}]]+
+          [\p{P}\p{S}&&[^,;'"`({\[)}\]\p{Pc}]]+
         ) |
         ( # 36: custom ascii
-          [\p{S}\p{P}&&[\x80-\xFF]] # leading chars
-          [\p{S}\p{P}&&[^,;'"`({\[)}\]\p{Pc}]]+
+          [\p{P}\p{S}&&[\x80-\xFF]] # leading chars
+          [\p{P}\p{S}&&[^,;'"`({\[)}\]\p{Pc}]]+
         ) |
         ( # 37: catch all
-          [\p{S}\p{P}&&[^,;'"`({\[)}\]\p{Pc}]]+
+          [\p{P}\p{S}&&[^,;'"`({\[)}\]\p{Pc}]]+
         )
       )
       (?=['"`({\[\w]) # opening
@@ -5594,9 +5618,9 @@ repository:
         |(\=) # 12
         |(\$) # 13
         |(\#) # 14
-        |[\p{S}\p{P}&&[^,;'"`({\[)}\]\p{Pc}]]
+        |[\p{P}\p{S}&&[^,;'"`({\[)}\]\p{Pc}]]
       ) # 15
-      (?=[\p{S}\p{P}&&[^,;'"`({\[)}\]\p{Pc}]]*
+      (?=[\p{P}\p{S}&&[^,;'"`({\[)}\]\p{Pc}]]*
       ['"`({\[\w])
     name: keyword.operator.prefix.hitori
     captures:
@@ -5621,7 +5645,7 @@ repository:
     match: |
       (?x)
       (?<=(?:['"`)}\]\w]|\\.)
-        [\p{S}\p{P}&&[^,;'"`({\[)}\]\p{Pc}]]*)
+        [\p{P}\p{S}&&[^,;'"`({\[)}\]\p{Pc}]]*)
       (?:
         ([*/]) # 1
         |(\+) # 2
@@ -5637,7 +5661,7 @@ repository:
         |(\=) # 12
         |(\$) # 13
         |(\#) # 14
-        |[\p{S}\p{P}&&[^,;'"`({\[)}\]\p{Pc}]]
+        |[\p{P}\p{S}&&[^,;'"`({\[)}\]\p{Pc}]]
       ) # 15
     name: keyword.operator.suffix.hitori
     captures:
@@ -5678,17 +5702,7 @@ repository:
             \s*
             (?<!(?:(?<!\.)\.|[?!:]:)=?)
             \b
-              (?:
-                pub|priv|prot|final|read|write|over
-                |global|local|intern|extern|mut|immut
-                |post|[gs]et|put|del|req|opt|shared|stable
-                |(?:un)?safe|virt|seal|abst|friend|enemy
-                |pure|impure|early|late|covar|contra
-                |in|out|inout|inplace|ref|defer|a?sync
-                |stat|dyn|lazy|eager|bound|free|unique
-                |union|open|closed?|rec|oper|curry|opaque
-                |inline|prefix|infix|suffix|unary|left|right
-              )
+              [\p{Pc}\p{L}]\w*
             )
             \b
           \s*
@@ -5697,7 +5711,8 @@ repository:
       (?=
         \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b
         (?:
-          const|let|mut|dyn|va[rl]|use|given|state
+          const|let|mut|dyn
+          |va[rl]|use|given|state
           |func|proc|prop|type|class|actor
           |impl|enum|module|struct|record
           |union|iter|macro|query|elem|temp
@@ -5707,48 +5722,104 @@ repository:
         \b\s*
       )
     captures:
-      1:
-        patterns:
-          - include: '#modifiers'
+      1: {patterns: [include: '#modifiers']}
+
+  type-modifiers:
+    patterns:
+      - name: storage.modifier.hitori
+        match: |
+          (?x)
+          \s*\b
+          (
+            # ignore all keywords
+            (?!
+              (?<!(?:(?<!\.)\.|[?!:]:)=?)\b
+              (?: # keywords
+                [io]n|of|[ai]s|new|del
+                |unset|ref|and|x?or|not
+                |const|let|mut|dyn
+                |va[rl]|use|given|state
+                |func|proc|prop|type|class|actor
+                |impl|enum|module|struct|record
+                |union|iter|macro|query|elem|temp
+                |object|realm|trait|style|script|quote
+                |go|defer|do|with|from|where
+                |if|else|then|guard|when
+                |for|loop|while|goto|move
+                |try|throw|catch|switch
+                |match|case|pass|def
+                |break|skip|redo|retry
+                |return|yield|await|scope
+                |import|export|intern|extern
+                |debug|assert|check|decl
+              )
+              \b
+            )
+            [\p{Pc}\p{L}]\w* # identifier
+          )
+          \b\s*
+          (?=
+            (?!
+              (?<!(?:(?<!\.)\.|[?!:]:)=?)\b
+              (?: # keywords
+                [io]n|of|[ai]s|new|del
+                |unset|ref|and|x?or|not
+                |const|let|mut|dyn
+                |va[rl]|use|given|state
+                |func|proc|prop|type|class|actor
+                |impl|enum|module|struct|record
+                |union|iter|macro|query|elem|temp
+                |object|realm|trait|style|script|quote
+                |go|defer|do|with|from|where
+                |if|else|then|guard|when
+                |for|loop|while|goto|move
+                |try|throw|catch|switch
+                |match|case|pass|def
+                |break|skip|redo|retry
+                |return|yield|await|scope
+                |import|export|intern|extern
+                |debug|assert|check|decl
+              )
+              \b
+            )
+            [\p{Pc}\p{L}]\w*
+          )
+        captures:
+          1: {patterns: [include: '#modifiers']}
 
   modifiers:
     patterns:
       - comment: Visibility modifiers
         match: |
-          (?x) \s*
-          \b
+          (?x)\s*\b
           (?:
             pub|priv|prot|final|read|write|over
             |global|local|intern|extern|mut|immut
             |post|[gs]et|put|del|req|opt|shared|stable
             |(?:un)?safe|virt|seal|abst|friend|enemy
-          )
-          \b
-          \s*
+          ) \b\s*
         name: storage.modifier.hitori
       - comment: Visibility modifiers
         match: |
-          (?x) \s*
-          \b
+          (?x)\s*\b
           (?:
             in|out|inout|inplace|ref|defer|a?sync
             |stat|dyn|lazy|eager|bound|free|unique
             |union|open|closed?
-          )
-          \b
-          \s*
+          ) \b\s*
         name: storage.modifier.declaration.hitori
       - comment: Functional modifiers
         match: |
-          (?x) \s*
-          \b
+          (?x)\s*\b
           (?:
             rec|oper|curry|opaque|inline|prefix
             |infix|suffix|unary|left|right
-          )
-          \b
-          \s*
+          )\b\s*
         name: storage.modifier.function.hitori
+      - include: '#expression-keywords'
+      - comment: Functional modifiers
+        match: \s*\b([\p{Pc}\p{L}]\w*)\b\s*
+        name: storage.type.custom.hitori
 
   declaration-keywords:
     patterns:
@@ -6689,7 +6760,7 @@ repository:
           | # opening bracket
             [({\[]
           | # postfix or infix operator
-            [\p{S}\p{P}&&[^,;'"`({\[)}\]\p{Pc}]]+ \s
+            [\p{P}\p{S}&&[^,;'"`({\[)}\]\p{Pc}]]+ \s
         ) \s*
         | # a keyword
         (?:
@@ -6698,7 +6769,8 @@ repository:
             (?: # keywords
               [io]n|of|[ai]s|new|del
               |unset|ref|and|x?or|not
-              |const|let|mut|dyn|va[rl]|use|given|state
+              |const|let|mut|dyn
+              |va[rl]|use|given|state
               |func|proc|prop|type|class|actor
               |impl|enum|module|struct|record
               |union|iter|macro|query|elem|temp
@@ -7223,7 +7295,7 @@ repository:
       - include: '#semicolon'
 
   line-continuation:
-    begin: \s*(`)\s*(?=/[/*](?![\p{S}\p{P}&&[^,;'"`({\[)}\]\p{Pc}]]+)|$)
+    begin: \s*(`)\s*(?=/[/*](?![\p{P}\p{S}&&[^,;'"`({\[)}\]\p{Pc}]]+)|$)
     end: ^\s*(?=\S)
     captures:
       1: {name: punctuation.separator.continuation.line.hitori}
@@ -7257,7 +7329,7 @@ repository:
           1: {name: punctuation.type.arguments.hitori}
       - comment: Support for Turbofish syntax
         name: meta.type-arguments
-        begin: (?<=^|['"`)}\]>\w\s])([?!:]:|[?!]?\.)(<)(?=[\p{S}\p{P}&&[^,;'"`({\[)}\]\p{Pc}]]*['"`({\[\w])
+        begin: (?<=^|['"`)}\]>\w\s])([?!:]:|[?!]?\.)(<)(?=[\p{P}\p{S}&&[^,;'"`({\[)}\]\p{Pc}]]*['"`({\[\w])
         end: (?<=^|['"`)}\]>\w])()(>)(!\b)?
         captures:
           1:
@@ -7324,7 +7396,7 @@ repository:
           1: {name: punctuation.type.arguments.hitori}
       - comment: Type arguments. This is complicated since we don't want to match things like foo < 123 || bar > baz
         name: meta.type-arguments
-        begin: (?<=^|['"`)}\]>\w\s])(<)(?=[\p{S}\p{P}&&[^,;'"`({\[)}\]\p{Pc}]]*['"`({\[\w])
+        begin: (?<=^|['"`)}\]>\w\s])(<)(?=[\p{P}\p{S}&&[^,;'"`({\[)}\]\p{Pc}]]*['"`({\[\w])
         end: (?<=^|['"`)}\]>\w]?)(>)
         captures:
           1: {name: punctuation.type.arguments.hitori}
@@ -7343,7 +7415,7 @@ repository:
         patterns:
           - match: ','
             name: punctuation.separator.mapping.hitori
-          - match: (?<=(?:['"`)}\]\w]|\\.)[\p{S}\p{P}&&[^,;'"`({\[)}\]\p{Pc}]]*):(?=['"`({\[\w\s]|$)
+          - match: (?<=(?:['"`)}\]\w]|\\.)[\p{P}\p{S}&&[^,;'"`({\[)}\]\p{Pc}]]*):(?=['"`({\[\w\s]|$)
             name: punctuation.separator.key-value.hitori
 
     patterns:
@@ -7389,7 +7461,9 @@ repository:
             (?:^|[,;'"({\[)}\]\s]) # beside a delimiter or space
             \b
               (?: # destructuring keywords
-                const|let|mut|dyn|va[rl]|use|given|state|case
+                const|let|mut|dyn
+                |va[rl]|use|given|state
+                |case
               )
             \b
             (?:$|[,;'"({\[)}\]\s]) # beside a delimiter or space
@@ -7463,7 +7537,7 @@ repository:
                 ^
               | [,;({\[]
               | (?:^|[,;({\[)}\]\w'"`]|\\.):\s*
-              | [\p{S}\p{P}&&[^,;'"`({\[)}\]\p{Pc}]]+
+              | [\p{P}\p{S}&&[^,;'"`({\[)}\]\p{Pc}]]+
             )
             \s*
           )
@@ -7485,7 +7559,7 @@ repository:
                 ^
               | [,;({\[]
               | (?:^|[,;({\[)}\]\w'"`]|\\.):\s*
-              | [\p{S}\p{P}&&[^,;'"`({\[)}\]\p{Pc}]]+
+              | [\p{P}\p{S}&&[^,;'"`({\[)}\]\p{Pc}]]+
             )
             \s*
           )
@@ -7533,7 +7607,9 @@ repository:
             (?:^|[,;'"({\[)}\]\s]) # beside a delimiter or space
             \b
               (?: # destructuring keywords
-                const|let|mut|dyn|va[rl]|use|given|state|case
+                const|let|mut|dyn
+                |va[rl]|use|given|state
+                |case
               )
             \b
             (?:$|[,;'"({\[)}\]\s]) # beside a delimiter or space
@@ -7593,7 +7669,9 @@ repository:
             (?:^|[,;'"({\[)}\]\s]) # beside a delimiter or space
             \b
               (?: # destructuring keywords
-                const|let|mut|dyn|va[rl]|use|given|state|case
+                const|let|mut|dyn
+                |va[rl]|use|given|state
+                |case
               )
             \b
             (?:$|[,;'"({\[)}\]\s]) # beside a delimiter or space
@@ -7701,7 +7779,8 @@ repository:
               (?: # keywords
                 [io]n|of|[ai]s|new|del
                 |unset|ref|and|x?or|not
-                |const|let|mut|dyn|va[rl]|use|given|state
+                |const|let|mut|dyn
+                |va[rl]|use|given|state
                 |func|proc|prop|type|class|actor
                 |impl|enum|module|struct|record
                 |union|iter|macro|query|elem|temp
@@ -7768,7 +7847,8 @@ repository:
               (?: # keywords
                 [io]n|of|[ai]s|new|del
                 |unset|ref|and|x?or|not
-                |const|let|mut|dyn|va[rl]|use|given|state
+                |const|let|mut|dyn
+                |va[rl]|use|given|state
                 |func|proc|prop|type|class|actor
                 |impl|enum|module|struct|record
                 |union|iter|macro|query|elem|temp
@@ -7863,7 +7943,8 @@ repository:
               (?: # keywords
                 [io]n|of|[ai]s|new|del
                 |unset|ref|and|x?or|not
-                |const|let|mut|dyn|va[rl]|use|given|state
+                |const|let|mut|dyn
+                |va[rl]|use|given|state
                 |func|proc|prop|type|class|actor
                 |impl|enum|module|struct|record
                 |union|iter|macro|query|elem|temp
