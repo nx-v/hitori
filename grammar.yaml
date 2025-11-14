@@ -826,8 +826,8 @@ repository:
           (?:
             (it|this|super|self) # special arguments
             |(params) # arguments
-            |(constructor) # constructor
-            |(prototype) # prototype
+            |(ctor) # constructor
+            |(proto) # prototype
           )
           \b
         captures:
@@ -5979,21 +5979,37 @@ repository:
     patterns:
       - match: &constraint-keyword |
           (?x)
-          \s*
-            (?<!(?:(?<!\.)\.|[?!:]:)=?)\b(
-              (?:
-                require|ensure|(de|in)(crease|crement)|throw|read|assume
-                |return|yield|varie|change|create|alter|delete|drop|rename
-                |reveal|write|name|permit|allow|grant|revoke|deny|disallow
-                |modifie|renew|transfer|postpone|suspend|resume|abort|reject
-                |cancel|post|put|get|set|patch|delete|trace|connect|disconnect
-                |accept|receive|send|open|close|lock|unlock|flush|reboot|reload
-                |restart|start|stop|kill|spawn|invoke|execute|derive|connect
-                |extend|implement|use|borrow|lend
-              )s
+          (?<=^|{|;|,)\s*
+          (
+            \b
+            # ignore all keywords
+            (?!
+              (?<!(?:(?<!\.)\.|[?!:]:)=?)\b
+              (?: # keywords
+                [io]n|of|[ai]s|new|del|old
+                |unset|ref|and|x?or|not
+                |const|let|mut|dyn
+                |va[rl]|use|given|state
+                |func|proc|prop|type|class|actor
+                |impl|enum|module|struct|record
+                |union|iter|macro|query|elem|temp
+                |object|realm|trait|style|script|quote
+                |go|defer|do|with|from|where
+                |if|else|then|guard|when
+                |for|loop|while|goto|move
+                |try|throw|catch|switch
+                |match|case|pass|def
+                |break|skip|redo|retry
+                |return|yield|await|scope
+                |import|export|intern|extern
+                |debug|assert|check|decl
+              )
+              \b
             )
-            \b\s*
-          \s*
+            \b
+            [\p{Pc}\p{L}]\w* # identifier
+            \b
+          )
         name: keyword.control.validate.hitori
       - include: $self
 
@@ -6887,7 +6903,7 @@ repository:
         beginCaptures:
           1: {name: keyword.control.error.hitori}
         endCaptures:
-          2: {name: punctuation.definition.section.hitori}
+          1: {name: punctuation.definition.section.hitori}
         patterns:
           - match: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(await)\b\s*
             name: keyword.control.error.hitori
@@ -6944,7 +6960,7 @@ repository:
         beginCaptures:
           1: {name: keyword.control.loop.hitori}
         endCaptures:
-          2: {name: punctuation.definition.section.hitori}
+          1: {name: punctuation.definition.block.hitori}
         patterns:
           - match: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b([io]n|of)\b\s*
             name: keyword.control.loop.hitori
@@ -6957,7 +6973,7 @@ repository:
         beginCaptures:
           1: {name: keyword.control.conditional.hitori}
         endCaptures:
-          2: {name: punctuation.definition.section.hitori}
+          1: {name: punctuation.definition.block.hitori}
         patterns:
           - match: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(await)\b\s*
             name: keyword.control.conditional.hitori
@@ -6970,7 +6986,7 @@ repository:
         beginCaptures:
           1: {name: keyword.control.match.hitori}
         endCaptures:
-          2: {name: punctuation.definition.section.hitori}
+          2: {name: punctuation.definition.block.hitori}
         patterns:
           - match: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(await)\b\s*
             name: keyword.control.match.hitori
@@ -7018,7 +7034,7 @@ repository:
         beginCaptures:
           1: {name: keyword.control.switch.hitori}
         endCaptures:
-          2: {name: punctuation.definition.section.hitori}
+          1: {name: punctuation.definition.block.hitori}
         patterns:
           - match: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(await)\b\s*
             name: keyword.control.switch.hitori
@@ -7060,21 +7076,17 @@ repository:
               - include: $self
 
       with-clause:
-        applyEndPatternLast: true
-        begin: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(with)\b\s*(?=\()
-        end: (?=)|$
-        name: meta.with.hitori
-        captures:
+        begin: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(with)\b\s*
+        end: \s*(:)(?=['"`({\[)}\]\w\s])|(?=[,;)}\]])|$
+        name: meta.if.hitori
+        beginCaptures:
           1: {name: keyword.control.with.hitori}
+        endCaptures:
+          1: {name: punctuation.definition.block.hitori}
         patterns:
-          - begin: \s*(\()\s*
-            end: \s*(\))
-            captures:
-              1: {name: punctuation.definition.expression.hitori}
-            patterns:
-              - match: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(await|as)\b\s*
-                name: keyword.control.with.hitori
-              - include: $self
+          - match: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(await)\b\s*
+            name: keyword.control.with.hitori
+          - include: $self
 
   # Binding patterns
 
@@ -7785,6 +7797,7 @@ repository:
     patterns:
       - include: '#function-calls'
       - include: '#literals'
+      - include: '#constants'
       - match: |
           (?x)
           (?<=\()
@@ -7826,10 +7839,43 @@ repository:
           )
           \s*
           (?= 
-              \s[({\[\w] # opening brackets
-            | (?:\w*|[\\$#%]*)['"] | `\s*(?=\N) # string literals 
-            | :[\p{Pc}\p{L}]\w* # symbol literals
-            | $ # end of line
+            (?:
+              (?: # function name
+                \b
+                # ignore all keywords
+                (?!
+                  (?<!(?:(?<!\.)\.|[?!:]:)=?)\b
+                  (?: # keywords
+                    [io]n|of|[ai]s|new|del|old
+                    |unset|ref|and|x?or|not
+                    |const|let|mut|dyn
+                    |va[rl]|use|given|state
+                    |func|proc|prop|type|class|actor
+                    |impl|enum|module|struct|record
+                    |union|iter|macro|query|elem|temp
+                    |object|realm|trait|style|script|quote
+                    |go|defer|do|with|from|where
+                    |if|else|then|guard|when
+                    |for|loop|while|goto|move
+                    |try|throw|catch|switch
+                    |match|case|pass|def
+                    |break|skip|redo|retry
+                    |return|yield|await|scope
+                    |import|export|intern|extern
+                    |debug|assert|check|decl
+                  )
+                  \b
+                )
+                \b
+                [\p{Pc}\p{L}]\w* # identifier
+                \b
+              )
+              | \s[({\[] # opening brackets
+              | <[\p{Pc}\p{L}]\w* # XML tags
+              | (?:\w*|[\\$#%]*)['"] | `\s*(?=\N) # string literals 
+              | :[\p{Pc}\p{L}]\w* # symbol literals
+              | $ # end of line
+            )
           )
         name: meta.function-call.hitori
         captures:
@@ -7842,6 +7888,7 @@ repository:
   # Objective-C-style messages
   message:
     patterns:
+      - include: '#constants'
       - include: '#function-calls'
       - applyEndPatternLast: true
         begin: |
@@ -7975,7 +8022,40 @@ repository:
             [\p{Pc}\p{L}]\w* # identifier
             \b
           )
-          (?=(?:[?!]:?|::)?\s+\b)
+          \s*
+          (?= 
+            (?: # function name
+              \b
+              # ignore all keywords
+              (?!
+                (?<!(?:(?<!\.)\.|[?!:]:)=?)\b
+                (?: # keywords
+                  [io]n|of|[ai]s|new|del|old
+                  |unset|ref|and|x?or|not
+                  |const|let|mut|dyn
+                  |va[rl]|use|given|state
+                  |func|proc|prop|type|class|actor
+                  |impl|enum|module|struct|record
+                  |union|iter|macro|query|elem|temp
+                  |object|realm|trait|style|script|quote
+                  |go|defer|do|with|from|where
+                  |if|else|then|guard|when
+                  |for|loop|while|goto|move
+                  |try|throw|catch|switch
+                  |match|case|pass|def
+                  |break|skip|redo|retry
+                  |return|yield|await|scope
+                  |import|export|intern|extern
+                  |debug|assert|check|decl
+                )
+                \b
+              )
+              \b
+              [\p{Pc}\p{L}]\w* # identifier
+              \b
+            ) 
+            (?:[?!]:?|::)? # qualified name separator
+          )
         name: meta.message.hitori
         captures:
           1:
