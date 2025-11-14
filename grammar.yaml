@@ -6913,7 +6913,7 @@ repository:
         begin: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(catch)\b\s*
         end: \s*(?=[,;)}\]])|$
         name: meta.catch.hitori
-        captures:
+        beginCaptures:
           1: {name: keyword.control.error.hitori}
         patterns:
           - match: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(as)\b\s*
