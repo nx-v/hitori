@@ -6911,7 +6911,7 @@ repository:
 
       catch-clause:
         begin: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(catch)\b\s*
-        end: \s*(:)(?=['"`({\[)}\]\w\s])|(?=[,;)}\]])|$
+        end: \s*(?=[,;)}\]])|$
         name: meta.catch.hitori
         captures:
           1: {name: keyword.control.error.hitori}
@@ -6981,12 +6981,10 @@ repository:
 
       match-clause:
         begin: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(match)\b\s*
-        end: \s*(:)(?=['"`({\[)}\]\w\s])|(?=[,;)}\]])|$
+        end: \s*(?=[,;)}\]])|$
         name: meta.match.hitori
         beginCaptures:
           1: {name: keyword.control.match.hitori}
-        endCaptures:
-          2: {name: punctuation.definition.block.hitori}
         patterns:
           - match: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(await)\b\s*
             name: keyword.control.match.hitori
@@ -7004,15 +7002,13 @@ repository:
           - match: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(def)\b\s*(:)
             captures:
               1: {name: keyword.control.match.hitori}
-              2:
-                name: punctuation.definition.case-statement.hitori
+              2: {name: punctuation.definition.case-statement.hitori}
           - begin: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(case)\b\s*
             end: \s*(:)(?=['"`({\[)}\]\w\s])|$
             beginCaptures:
               1: {name: keyword.control.match.hitori}
             endCaptures:
-              1:
-                name: punctuation.definition.case-statement.hitori
+              1: {name: punctuation.definition.case-statement.hitori}
             patterns:
               - include: '#argument-list'
               - applyEndPatternLast: true
@@ -7033,8 +7029,6 @@ repository:
         name: meta.switch.hitori
         beginCaptures:
           1: {name: keyword.control.switch.hitori}
-        endCaptures:
-          1: {name: punctuation.definition.block.hitori}
         patterns:
           - match: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(await)\b\s*
             name: keyword.control.switch.hitori
@@ -7052,15 +7046,13 @@ repository:
           - match: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(def)\b\s*(:)
             captures:
               1: {name: keyword.control.switch.hitori}
-              2:
-                name: punctuation.definition.case-statement.hitori
+              2: {name: punctuation.definition.case-statement.hitori}
           - begin: \s*(?<!(?:(?<!\.)\.|[?!:]:)=?)\b(case)\b\s*
             end: \s*(:)(?=['"`({\[)}\]\w\s])|$
             beginCaptures:
               1: {name: keyword.control.switch.hitori}
             endCaptures:
-              1:
-                name: punctuation.definition.case-statement.hitori
+              1: {name: punctuation.definition.case-statement.hitori}
             patterns:
               - include: '#argument-list'
               - applyEndPatternLast: true
